@@ -2,9 +2,11 @@ __author__ = 'hannah'
 
 
 """
-Simple filters.
+LPF implemented.
 
--> Buffer[] is a queue where the new filter is applied each time
+TODO: hpf_emg0_list is the hpf values, need to add to plot
+TODO: then add envelope detection using matlab info
+
 """
 
 import time
@@ -37,7 +39,7 @@ TIME_LIMIT = 100
 BUFFER_SIZE = 4
 AVG_SIZE = 5 # only odd numbers work well
 
-DISPLAY_SIZE = 50
+DISPLAY_SIZE = 150
 DISPLAY_OFFSET = DISPLAY_SIZE/20
 
 SHAPE_TYPE = 0
@@ -67,9 +69,12 @@ emg0_list = [0 for i in range(DISPLAY_SIZE)]
 emg1_list = [0 for i in range(DISPLAY_SIZE)]
 time_list = [0 for i in range(DISPLAY_SIZE)]
 
+hpf_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+
 emg_counter = 0
 buffer_counter = 0
 initial = False
+hpf_sign = True
 
 time.sleep(1)
 
@@ -83,7 +88,6 @@ matplotlib.use('TkAgg')
 plt.ion()
 plt.show()
 
-print emg0_buffer
 
 with open("fake_emg_data.txt", "r") as f:
     while time.time() < end:
@@ -114,22 +118,41 @@ with open("fake_emg_data.txt", "r") as f:
 
         if not initial:
             emg0_list[emg_counter] = data_split[EMG0_LOC]
+            if hpf_sign == False:
+                hpf_emg0_list[emg_counter] = -int(data_split[EMG0_LOC])
+                hpf_sign = True
+            else:
+                hpf_emg0_list[emg_counter] = int(data_split[EMG0_LOC])
+                hpf_sign = False
+
         else:
             emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
+            if hpf_sign == False:
+                hpf_emg0_list[emg_counter] = -sum(emg0_buffer)/AVG_SIZE
+                hpf_sign = True
+            else:
+                hpf_emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
+                hpf_sign = False
+
 
         emg_counter += 1
 
         plt.clf()
 
-        plt.subplot(2,1,1)
+        plt.subplot(3,1,1)
         plt.title('Raw EMG0')
         plt.plot(raw_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 250, 350])
+        plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-        plt.subplot(2,1,2)
-        plt.title('Processed EMG0')
+        plt.subplot(3,1,2)
+        plt.title('LPF EMG0')
         plt.plot(emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 250, 350])
+        plt.axis([0, DISPLAY_SIZE, 275, 340])
+
+        plt.subplot(3,1,3)
+        plt.title('HPF EMG0')
+        plt.plot(hpf_emg0_list)
+        plt.axis([0, DISPLAY_SIZE, -375, 375])
 
         plt.draw()
         plt.pause(0.01)
