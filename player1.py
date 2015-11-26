@@ -10,6 +10,8 @@ Simple filters.
 import serial
 import time
 import pika
+import matplotlib.pyplot as plt
+import math
 
 
 def squareFilter(bw, weight):
@@ -163,6 +165,21 @@ while time.time() < end:
         channel.basic_publish(exchange='', routing_key='player1', body=str(output))
         delay = 0
     delay += 1
+
+    plt.clf()
+
+    # plot emg
+    plt.subplot(2,1,1)
+    plt.title('EMG 0')
+    plt.axis([0,200, -100,600])
+    plt.plot(emg0_list)
+
+    # plot sync
+    plt.subplot(2,1,2)
+    plt.title('EMG 1')
+    plt.plot(emg1_list)
+
+    plt.draw()
 
     # if emg0_list[list_counter+1] < 300:
     #     if temp > 1:

@@ -151,20 +151,6 @@ def displayTeamNames():
     resultRect.centery = WINDOWHEIGHT/6
     DISPLAYSURF.blit(resultSurf, resultRect)
 
-
-
-# 1. Measure how many samples for 1 sec of code by adding a time comparison in callback.
-# After 1 sec, call channel.stop_consuming. Use a counter to count the number of samples.
-# Use num samples to find rate of input and only take input every cycle.
-# 2. Can also average over their input rate to match this rate
-# 3. Tell them no faster than 1/5ms (200 Hz), maye 100 or 60 Hz to be safe
-
-def callback(ch, method, properties, body):
-    channel.stop_consuming()
-    global inputOne
-    inputOne = body
-
-
 #Main function
 def main():
     pygame.init()
@@ -209,17 +195,18 @@ def main():
     global channel
     channel = connection.channel()
 
-    # create queue
+    # create player input queues
     channel.queue_declare(queue='player1')
     channel.queue_declare(queue='player2')
-
+    channel.queue_declare(queue='dlx')
 
     rand_counter = 0
 
     # RANDOM INPUTS
     global inputOne
     inputOne = 0.0
-    inputTwo = 0
+    global inputTwo
+    inputTwo = 0.0
 
     prev_time = time.time()
 
@@ -232,10 +219,6 @@ def main():
             if event.type == pygame.locals.QUIT:
                 pygame.quit()
                 sys.exit()
-            # mouse movement commands
-            # elif event.type == MOUSEMOTION:
-            #     mousex, mousey = event.pos
-            #     paddle1.y = mousey
 
         drawArena()
         drawPaddle(paddle1)
@@ -245,14 +228,13 @@ def main():
         ball = moveBall(ball, ballDirX, ballDirY)
         ballDirX, ballDirY = checkEdgeCollision(ball, ballDirX, ballDirY)
 
-        # RANDOM INPUTS
-        if rand_counter == 100:
-            # inputOne = float(randint(-10, 10))/10
-            inputTwo = float(randint(-10, 10))/10
-            rand_counter = 0
-        rand_counter += 1
+        # RANDOM INPUTS, used for randomizing input, when there is no scripts feeding inputs
+        # if rand_counter == 100:
+        #     inputOne = float(randint(-10, 10))/10
+        #     inputTwo = float(randint(-10, 10))/10
+        #     rand_counter = 0
+        # rand_counter += 1
 
-        # todo: add some sort of time out!
         channel.start_consuming()
         method_frame, header_frame, body = channel.basic_get(queue = 'player1')
         if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
@@ -261,11 +243,15 @@ def main():
             channel.basic_ack(delivery_tag=method_frame.delivery_tag)
             channel.stop_consuming()
             inputOne = float(body)
+            print "%s\t%s" %(inputOne, str(time.time()))
 
-        # channel.basic_consume(callback, queue='player1', no_ack=True)
-        # channel.start_consuming()
-
-        # print inputOne
+        method_frame, header_frame, body = channel.basic_get(queue = 'player2')
+        if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
+            channel.stop_consuming()
+        else:
+            channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+            channel.stop_consuming()
+            inputTwo = float(body)
 
         updatePaddle(paddle1, float(inputOne))
         updatePaddle(paddle2, float(inputTwo))

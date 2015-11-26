@@ -1,0 +1,1906 @@
+C:\Users\hannah\Anaconda\python.exe "C:/Users/hannah/Google Drive/ECE16/ece16_example/sig_processing_ex (1)/real_time_visual.py"
+	
+
+length
+Bicep Baseline:	305
+
+length
+Bicep Level:	304
+
+length
+Bicep Flex:	305
+
+length
+Tricep Baseline:	300
+
+length
+Tricep Level:	300
+
+length
+Tricep Flex:	300
+
+length
+signal0	303	signal1	298	time	3407	time	3407
+
+signal0	302	signal1	297	time	16	time	16
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	303	signal1	299	time	33	time	49
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	300	signal1	296	time	32	time	47
+
+signal0	303	signal1	299	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	297	time	32	time	47
+
+signal0	304	signal1	299	time	33	time	33
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	47
+
+signal0	303	signal1	300	time	33	time	33
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	305	signal1	303	time	32	time	48
+
+signal0	304	signal1	301	time	32	time	32
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	305	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	301	signal1	298	time	32	time	48
+
+signal0	306	signal1	302	time	32	time	32
+
+signal0	297	signal1	307	time	32	time	48
+
+signal0	292	signal1	288	time	32	time	32
+
+signal0	303	signal1	298	time	31	time	48
+
+signal0	283	signal1	279	time	32	time	48
+
+signal0	293	signal1	291	time	32	time	32
+
+signal0	308	signal1	323	time	31	time	48
+
+signal0	285	signal1	283	time	32	time	32
+
+signal0	310	signal1	305	time	32	time	48
+
+signal0	294	signal1	288	time	31	time	48
+
+signal0	303	signal1	301	time	32	time	32
+
+signal0	296	signal1	301	time	32	time	48
+
+signal0	302	signal1	298	time	31	time	31
+
+signal0	306	signal1	301	time	33	time	49
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	311	signal1	307	time	31	time	31
+
+signal0	308	signal1	307	time	33	time	49
+
+signal0	311	signal1	306	time	32	time	32
+
+signal0	309	signal1	305	time	32	time	47
+
+signal0	310	signal1	306	time	33	time	49
+
+signal0	312	signal1	308	time	32	time	32
+
+signal0	312	signal1	301	time	32	time	47
+
+signal0	313	signal1	309	time	33	time	33
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	300	signal1	298	time	32	time	47
+
+signal0	293	signal1	291	time	33	time	33
+
+signal0	298	signal1	304	time	32	time	48
+
+signal0	277	signal1	276	time	32	time	32
+
+signal0	297	signal1	292	time	32	time	48
+
+signal0	293	signal1	290	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	32
+
+signal0	295	signal1	293	time	32	time	48
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	302	signal1	299	time	32	time	48
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	308	signal1	303	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	32
+
+signal0	308	signal1	300	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	309	signal1	305	time	31	time	48
+
+signal0	306	signal1	301	time	32	time	48
+
+signal0	306	signal1	302	time	32	time	32
+
+signal0	307	signal1	302	time	31	time	48
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	309	signal1	304	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	306	signal1	303	time	32	time	48
+
+signal0	300	signal1	296	time	31	time	31
+
+signal0	308	signal1	303	time	33	time	49
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	298	signal1	294	time	31	time	31
+
+signal0	296	signal1	300	time	33	time	49
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	297	signal1	293	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	49
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	297	signal1	293	time	32	time	47
+
+signal0	298	signal1	294	time	33	time	33
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	303	signal1	297	time	32	time	47
+
+signal0	290	signal1	284	time	33	time	33
+
+signal0	294	signal1	291	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	32
+
+signal0	288	signal1	284	time	32	time	48
+
+signal0	297	signal1	292	time	32	time	48
+
+signal0	303	signal1	298	time	32	time	32
+
+signal0	305	signal1	304	time	32	time	48
+
+signal0	305	signal1	302	time	32	time	32
+
+signal0	311	signal1	306	time	32	time	48
+
+signal0	306	signal1	303	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	32
+
+signal0	310	signal1	298	time	32	time	48
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	307	signal1	303	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	48
+
+signal0	304	signal1	301	time	32	time	32
+
+signal0	305	signal1	299	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	301	signal1	297	time	31	time	48
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	308	signal1	304	time	32	time	32
+
+signal0	306	signal1	302	time	31	time	48
+
+signal0	307	signal1	304	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	48
+
+signal0	302	signal1	299	time	32	time	32
+
+signal0	301	signal1	299	time	32	time	48
+
+signal0	305	signal1	301	time	31	time	31
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	31
+
+signal0	305	signal1	298	time	33	time	49
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	298	signal1	293	time	32	time	47
+
+signal0	299	signal1	295	time	33	time	49
+
+signal0	304	signal1	299	time	32	time	32
+
+signal0	304	signal1	298	time	32	time	47
+
+signal0	302	signal1	298	time	33	time	33
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	305	signal1	300	time	32	time	47
+
+signal0	304	signal1	300	time	33	time	33
+
+signal0	303	signal1	296	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	301	signal1	296	time	32	time	32
+
+signal0	305	signal1	299	time	32	time	48
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	299	signal1	295	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	48
+
+signal0	306	signal1	303	time	32	time	32
+
+signal0	302	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	307	signal1	302	time	31	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	304	signal1	297	time	31	time	48
+
+signal0	306	signal1	302	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	304	signal1	301	time	32	time	32
+
+signal0	307	signal1	300	time	32	time	48
+
+signal0	307	signal1	303	time	31	time	31
+
+signal0	304	signal1	300	time	33	time	49
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	302	signal1	299	time	33	time	49
+
+signal0	303	signal1	298	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	302	signal1	297	time	33	time	49
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	304	signal1	299	time	32	time	47
+
+signal0	305	signal1	300	time	33	time	33
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	47
+
+signal0	309	signal1	304	time	33	time	33
+
+signal0	303	signal1	301	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	302	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	299	signal1	294	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	304	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	305	signal1	298	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	32
+
+signal0	296	signal1	298	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	31	time	48
+
+signal0	308	signal1	303	time	32	time	32
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	301	signal1	297	time	31	time	31
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	294	signal1	291	time	32	time	48
+
+signal0	293	signal1	289	time	31	time	31
+
+signal0	297	signal1	310	time	33	time	49
+
+signal0	295	signal1	290	time	32	time	32
+
+signal0	317	signal1	312	time	32	time	47
+
+signal0	291	signal1	287	time	33	time	49
+
+signal0	301	signal1	298	time	32	time	32
+
+signal0	301	signal1	310	time	32	time	47
+
+signal0	280	signal1	281	time	33	time	33
+
+signal0	308	signal1	303	time	32	time	48
+
+signal0	307	signal1	302	time	32	time	47
+
+signal0	303	signal1	300	time	33	time	33
+
+signal0	298	signal1	298	time	32	time	48
+
+signal0	308	signal1	303	time	32	time	32
+
+signal0	309	signal1	303	time	32	time	48
+
+signal0	297	signal1	293	time	32	time	48
+
+signal0	309	signal1	305	time	32	time	32
+
+signal0	304	signal1	292	time	32	time	48
+
+signal0	322	signal1	316	time	32	time	32
+
+signal0	305	signal1	299	time	32	time	48
+
+signal0	294	signal1	292	time	32	time	48
+
+signal0	314	signal1	308	time	32	time	32
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	305	signal1	302	time	32	time	48
+
+signal0	294	signal1	290	time	32	time	32
+
+signal0	307	signal1	294	time	32	time	48
+
+signal0	321	signal1	315	time	32	time	32
+
+signal0	305	signal1	300	time	31	time	48
+
+signal0	298	signal1	294	time	32	time	48
+
+signal0	297	signal1	295	time	32	time	32
+
+signal0	309	signal1	293	time	31	time	48
+
+signal0	303	signal1	298	time	32	time	32
+
+signal0	306	signal1	300	time	32	time	48
+
+signal0	307	signal1	303	time	31	time	48
+
+signal0	309	signal1	305	time	32	time	32
+
+signal0	305	signal1	310	time	32	time	48
+
+signal0	307	signal1	303	time	31	time	31
+
+signal0	307	signal1	303	time	33	time	49
+
+signal0	308	signal1	304	time	32	time	48
+
+signal0	314	signal1	309	time	31	time	31
+
+signal0	305	signal1	301	time	33	time	49
+
+signal0	307	signal1	303	time	32	time	32
+
+signal0	300	signal1	297	time	32	time	47
+
+signal0	304	signal1	301	time	33	time	49
+
+signal0	306	signal1	302	time	32	time	32
+
+signal0	307	signal1	294	time	32	time	47
+
+signal0	288	signal1	285	time	33	time	33
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	296	signal1	291	time	32	time	47
+
+signal0	305	signal1	300	time	33	time	33
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	297	signal1	293	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	303	signal1	302	time	32	time	48
+
+signal0	308	signal1	303	time	32	time	32
+
+signal0	306	signal1	303	time	32	time	48
+
+signal0	307	signal1	302	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	305	signal1	295	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	299	signal1	296	time	31	time	48
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	305	signal1	302	time	32	time	32
+
+signal0	309	signal1	295	time	31	time	48
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	299	signal1	295	time	31	time	48
+
+signal0	298	signal1	294	time	32	time	32
+
+signal0	301	signal1	302	time	32	time	48
+
+signal0	302	signal1	297	time	31	time	31
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	312	signal1	308	time	31	time	31
+
+signal0	314	signal1	291	time	33	time	49
+
+signal0	295	signal1	290	time	32	time	32
+
+signal0	289	signal1	285	time	32	time	47
+
+signal0	301	signal1	296	time	33	time	49
+
+signal0	286	signal1	282	time	32	time	32
+
+signal0	302	signal1	311	time	32	time	47
+
+signal0	271	signal1	269	time	33	time	33
+
+signal0	299	signal1	297	time	32	time	48
+
+signal0	291	signal1	284	time	32	time	47
+
+signal0	304	signal1	298	time	33	time	33
+
+signal0	307	signal1	301	time	32	time	48
+
+signal0	295	signal1	294	time	32	time	32
+
+signal0	308	signal1	305	time	32	time	48
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	295	signal1	292	time	32	time	32
+
+signal0	306	signal1	294	time	32	time	48
+
+signal0	305	signal1	303	time	32	time	32
+
+signal0	322	signal1	316	time	32	time	48
+
+signal0	310	signal1	306	time	32	time	48
+
+signal0	309	signal1	306	time	32	time	32
+
+signal0	299	signal1	298	time	32	time	48
+
+signal0	299	signal1	296	time	32	time	32
+
+signal0	293	signal1	289	time	32	time	48
+
+signal0	308	signal1	304	time	32	time	48
+
+signal0	301	signal1	296	time	32	time	32
+
+signal0	312	signal1	289	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	310	signal1	305	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	311	signal1	307	time	32	time	32
+
+signal0	312	signal1	311	time	31	time	48
+
+signal0	312	signal1	308	time	32	time	32
+
+signal0	308	signal1	304	time	32	time	48
+
+signal0	308	signal1	304	time	31	time	48
+
+signal0	306	signal1	302	time	32	time	32
+
+signal0	306	signal1	304	time	32	time	48
+
+signal0	308	signal1	303	time	31	time	31
+
+signal0	310	signal1	306	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	307	signal1	303	time	31	time	31
+
+signal0	306	signal1	302	time	33	time	49
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	311	signal1	305	time	32	time	47
+
+signal0	299	signal1	294	time	33	time	49
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	306	signal1	293	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	33
+
+signal0	298	signal1	293	time	32	time	48
+
+signal0	297	signal1	293	time	32	time	47
+
+signal0	297	signal1	293	time	33	time	33
+
+signal0	295	signal1	296	time	32	time	48
+
+signal0	299	signal1	295	time	32	time	32
+
+signal0	299	signal1	295	time	32	time	48
+
+signal0	299	signal1	295	time	32	time	48
+
+signal0	300	signal1	295	time	32	time	32
+
+signal0	300	signal1	297	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	300	signal1	297	time	32	time	32
+
+signal0	300	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	305	signal1	302	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	305	signal1	300	time	31	time	48
+
+signal0	306	signal1	301	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	302	signal1	299	time	31	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	306	signal1	301	time	31	time	31
+
+signal0	304	signal1	299	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	306	signal1	302	time	31	time	31
+
+signal0	305	signal1	300	time	33	time	49
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	303	signal1	298	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	301	signal1	298	time	32	time	47
+
+signal0	306	signal1	302	time	33	time	33
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	47
+
+signal0	304	signal1	299	time	33	time	33
+
+signal0	301	signal1	299	time	32	time	48
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	305	signal1	300	time	32	time	32
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	303	signal1	298	time	32	time	32
+
+signal0	294	signal1	291	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	302	signal1	295	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	307	signal1	303	time	31	time	48
+
+signal0	308	signal1	302	time	32	time	48
+
+signal0	281	signal1	280	time	32	time	32
+
+signal0	289	signal1	317	time	31	time	48
+
+signal0	299	signal1	295	time	32	time	32
+
+signal0	315	signal1	311	time	32	time	48
+
+signal0	294	signal1	292	time	31	time	48
+
+signal0	329	signal1	321	time	32	time	32
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	295	signal1	293	time	31	time	31
+
+signal0	310	signal1	303	time	33	time	49
+
+signal0	295	signal1	293	time	32	time	48
+
+signal0	307	signal1	302	time	31	time	31
+
+signal0	298	signal1	299	time	33	time	49
+
+signal0	307	signal1	302	time	32	time	32
+
+signal0	295	signal1	293	time	32	time	47
+
+signal0	315	signal1	310	time	33	time	49
+
+signal0	300	signal1	295	time	32	time	32
+
+signal0	300	signal1	300	time	32	time	47
+
+signal0	311	signal1	307	time	33	time	33
+
+signal0	309	signal1	304	time	32	time	48
+
+signal0	312	signal1	308	time	32	time	47
+
+signal0	312	signal1	307	time	33	time	33
+
+signal0	305	signal1	302	time	32	time	48
+
+signal0	310	signal1	306	time	32	time	32
+
+signal0	311	signal1	306	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	309	signal1	304	time	32	time	32
+
+signal0	310	signal1	304	time	32	time	48
+
+signal0	309	signal1	305	time	32	time	32
+
+signal0	308	signal1	304	time	32	time	48
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	300	signal1	297	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	297	signal1	294	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	298	signal1	294	time	32	time	32
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	301	signal1	298	time	31	time	48
+
+signal0	299	signal1	294	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	299	signal1	295	time	31	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	300	signal1	296	time	31	time	48
+
+signal0	297	signal1	293	time	32	time	32
+
+signal0	302	signal1	293	time	32	time	48
+
+signal0	299	signal1	295	time	31	time	31
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	31
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	303	signal1	299	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	306	signal1	301	time	33	time	33
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	47
+
+signal0	303	signal1	299	time	33	time	33
+
+signal0	306	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	300	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	302	signal1	298	time	31	time	48
+
+signal0	306	signal1	301	time	32	time	48
+
+signal0	300	signal1	297	time	32	time	32
+
+signal0	303	signal1	296	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	304	signal1	299	time	32	time	48
+
+signal0	301	signal1	297	time	31	time	31
+
+signal0	304	signal1	300	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	31
+
+signal0	304	signal1	299	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	47
+
+signal0	305	signal1	301	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	47
+
+signal0	305	signal1	301	time	33	time	33
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	47
+
+signal0	302	signal1	298	time	33	time	33
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	304	signal1	298	time	32	time	48
+
+signal0	304	signal1	301	time	32	time	32
+
+signal0	299	signal1	294	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	297	signal1	293	time	32	time	48
+
+signal0	300	signal1	297	time	32	time	32
+
+signal0	303	signal1	293	time	32	time	48
+
+signal0	297	signal1	292	time	32	time	32
+
+signal0	299	signal1	295	time	31	time	48
+
+signal0	310	signal1	306	time	32	time	48
+
+signal0	303	signal1	297	time	32	time	32
+
+signal0	307	signal1	305	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	300	signal1	294	time	31	time	48
+
+signal0	295	signal1	291	time	32	time	32
+
+signal0	313	signal1	303	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	306	signal1	301	time	33	time	49
+
+signal0	303	signal1	297	time	32	time	48
+
+signal0	304	signal1	299	time	31	time	31
+
+signal0	304	signal1	302	time	33	time	49
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	309	signal1	305	time	32	time	47
+
+signal0	305	signal1	301	time	33	time	49
+
+signal0	299	signal1	294	time	32	time	32
+
+signal0	303	signal1	305	time	32	time	47
+
+signal0	298	signal1	294	time	33	time	33
+
+signal0	311	signal1	305	time	32	time	48
+
+signal0	306	signal1	303	time	32	time	47
+
+signal0	312	signal1	306	time	33	time	33
+
+signal0	295	signal1	299	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	32
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	300	signal1	295	time	32	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	304	signal1	309	time	32	time	48
+
+signal0	309	signal1	306	time	32	time	32
+
+signal0	309	signal1	305	time	32	time	48
+
+signal0	308	signal1	304	time	32	time	48
+
+signal0	306	signal1	302	time	32	time	32
+
+signal0	306	signal1	303	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	304	signal1	299	time	32	time	48
+
+signal0	298	signal1	294	time	32	time	48
+
+signal0	300	signal1	297	time	32	time	32
+
+signal0	307	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	309	signal1	304	time	32	time	32
+
+signal0	307	signal1	303	time	31	time	48
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	305	signal1	301	time	31	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	305	signal1	297	time	32	time	48
+
+signal0	308	signal1	303	time	31	time	31
+
+signal0	307	signal1	303	time	33	time	49
+
+signal0	307	signal1	302	time	32	time	48
+
+signal0	306	signal1	302	time	31	time	31
+
+signal0	304	signal1	301	time	33	time	49
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	312	signal1	307	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	300	signal1	298	time	32	time	47
+
+signal0	303	signal1	299	time	33	time	33
+
+signal0	306	signal1	301	time	32	time	48
+
+signal0	307	signal1	302	time	32	time	47
+
+signal0	302	signal1	297	time	33	time	33
+
+signal0	299	signal1	294	time	32	time	48
+
+signal0	298	signal1	294	time	32	time	32
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	301	signal1	298	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	299	signal1	295	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	301	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	300	signal1	296	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	307	signal1	303	time	32	time	32
+
+signal0	304	signal1	298	time	31	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	301	signal1	297	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	301	time	32	time	48
+
+signal0	300	signal1	297	time	31	time	31
+
+signal0	305	signal1	300	time	33	time	49
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	31
+
+signal0	304	signal1	297	time	33	time	49
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	300	time	32	time	47
+
+signal0	304	signal1	300	time	33	time	33
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	47
+
+signal0	304	signal1	300	time	33	time	33
+
+signal0	306	signal1	301	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	32
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	304	signal1	298	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	302	signal1	299	time	32	time	48
+
+signal0	301	signal1	298	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	305	signal1	301	time	31	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	302	signal1	297	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	301	signal1	297	time	31	time	48
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	31	time	31
+
+signal0	306	signal1	301	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	305	signal1	301	time	31	time	31
+
+signal0	307	signal1	302	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	300	time	32	time	47
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	313	signal1	309	time	32	time	32
+
+signal0	296	signal1	296	time	32	time	47
+
+signal0	308	signal1	304	time	33	time	33
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	292	signal1	289	time	32	time	47
+
+signal0	292	signal1	289	time	33	time	33
+
+signal0	294	signal1	298	time	32	time	48
+
+signal0	302	signal1	299	time	32	time	32
+
+signal0	308	signal1	301	time	32	time	48
+
+signal0	277	signal1	273	time	32	time	48
+
+signal0	301	signal1	298	time	32	time	32
+
+signal0	284	signal1	301	time	32	time	48
+
+signal0	292	signal1	289	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	303	signal1	306	time	32	time	48
+
+signal0	315	signal1	310	time	32	time	32
+
+signal0	313	signal1	309	time	32	time	48
+
+signal0	314	signal1	310	time	32	time	48
+
+signal0	315	signal1	310	time	32	time	32
+
+signal0	312	signal1	305	time	32	time	48
+
+signal0	313	signal1	308	time	32	time	32
+
+signal0	308	signal1	304	time	31	time	48
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	305	signal1	300	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	301	signal1	297	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	298	time	32	time	48
+
+signal0	299	signal1	295	time	31	time	31
+
+signal0	301	signal1	296	time	33	time	49
+
+signal0	298	signal1	294	time	32	time	48
+
+signal0	300	signal1	296	time	31	time	31
+
+signal0	301	signal1	296	time	33	time	49
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	301	signal1	296	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	49
+
+signal0	304	signal1	299	time	32	time	32
+
+signal0	306	signal1	300	time	32	time	47
+
+signal0	299	signal1	296	time	33	time	33
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	33
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	304	signal1	301	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	300	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	304	signal1	299	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	305	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	302	signal1	298	time	31	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	302	signal1	299	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	304	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	306	signal1	302	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	306	signal1	300	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	47
+
+signal0	303	signal1	299	time	33	time	49
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	297	time	32	time	47
+
+signal0	300	signal1	296	time	33	time	33
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	47
+
+signal0	304	signal1	300	time	33	time	33
+
+signal0	307	signal1	299	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	306	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	309	signal1	305	time	32	time	48
+
+signal0	307	signal1	304	time	32	time	32
+
+signal0	302	signal1	296	time	32	time	48
+
+signal0	299	signal1	297	time	32	time	32
+
+signal0	293	signal1	290	time	32	time	48
+
+signal0	306	signal1	300	time	32	time	48
+
+signal0	291	signal1	287	time	32	time	32
+
+signal0	286	signal1	296	time	32	time	48
+
+signal0	299	signal1	295	time	32	time	32
+
+signal0	309	signal1	303	time	31	time	48
+
+signal0	286	signal1	282	time	32	time	48
+
+signal0	313	signal1	311	time	32	time	32
+
+signal0	288	signal1	299	time	31	time	48
+
+signal0	301	signal1	298	time	32	time	32
+
+signal0	304	signal1	299	time	32	time	48
+
+signal0	301	signal1	299	time	31	time	48
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	305	signal1	309	time	32	time	48
+
+signal0	312	signal1	307	time	31	time	31
+
+signal0	314	signal1	309	time	33	time	49
+
+signal0	311	signal1	307	time	32	time	48
+
+signal0	313	signal1	309	time	31	time	31
+
+signal0	311	signal1	306	time	33	time	49
+
+signal0	308	signal1	304	time	32	time	32
+
+signal0	311	signal1	306	time	32	time	47
+
+signal0	307	signal1	303	time	33	time	49
+
+signal0	311	signal1	307	time	32	time	32
+
+signal0	308	signal1	303	time	32	time	47
+
+signal0	310	signal1	306	time	33	time	33
+
+signal0	301	signal1	298	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	47
+
+signal0	296	signal1	293	time	33	time	33
+
+signal0	298	signal1	295	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	300	signal1	296	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	299	signal1	298	time	32	time	48
+
+signal0	299	signal1	294	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	296	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	300	signal1	295	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	302	signal1	299	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	306	signal1	302	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	305	signal1	301	time	33	time	49
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	305	signal1	300	time	33	time	49
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	47
+
+signal0	302	signal1	298	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	302	signal1	301	time	32	time	47
+
+signal0	304	signal1	300	time	33	time	33
+
+signal0	305	signal1	300	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	299	signal1	294	time	33	time	33
+
+signal0	302	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	303	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	307	signal1	302	time	32	time	48
+
+signal0	304	signal1	299	time	32	time	48
+
+signal0	303	signal1	298	time	32	time	32
+
+signal0	305	signal1	299	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	301	signal1	297	time	31	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	301	signal1	297	time	31	time	48
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	305	signal1	301	time	31	time	48
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	31	time	31
+
+signal0	302	signal1	297	time	33	time	49
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	31
+
+signal0	303	signal1	300	time	33	time	49
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	299	signal1	295	time	32	time	47
+
+signal0	301	signal1	296	time	33	time	49
+
+signal0	304	signal1	301	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	47
+
+signal0	303	signal1	298	time	33	time	33
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	299	signal1	295	time	33	time	33
+
+signal0	305	signal1	299	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	299	signal1	294	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	307	signal1	284	time	32	time	48
+
+signal0	299	signal1	294	time	32	time	32
+
+signal0	284	signal1	284	time	32	time	48
+
+signal0	326	signal1	317	time	32	time	48
+
+signal0	292	signal1	288	time	32	time	32
+
+signal0	309	signal1	292	time	32	time	48
+
+signal0	298	signal1	292	time	32	time	32
+
+signal0	298	signal1	294	time	32	time	48
+
+signal0	295	signal1	291	time	32	time	48
+
+signal0	299	signal1	296	time	32	time	32
+
+signal0	303	signal1	312	time	32	time	48
+
+signal0	311	signal1	307	time	32	time	32
+
+signal0	298	signal1	295	time	31	time	48
+
+signal0	302	signal1	299	time	32	time	48
+
+signal0	302	signal1	299	time	32	time	32
+
+signal0	305	signal1	305	time	31	time	48
+
+signal0	310	signal1	304	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	304	signal1	300	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	307	signal1	300	time	32	time	48
+
+signal0	309	signal1	307	time	31	time	31
+
+signal0	303	signal1	300	time	33	time	49
+
+signal0	310	signal1	305	time	32	time	48
+
+signal0	307	signal1	302	time	31	time	31
+
+signal0	306	signal1	303	time	33	time	49
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	307	signal1	303	time	32	time	47
+
+signal0	309	signal1	305	time	33	time	49
+
+signal0	303	signal1	299	time	32	time	32
+
+signal0	303	signal1	299	time	32	time	47
+
+signal0	304	signal1	300	time	33	time	33
+
+signal0	307	signal1	303	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	47
+
+signal0	305	signal1	301	time	33	time	33
+
+signal0	301	signal1	296	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	299	signal1	295	time	32	time	48
+
+signal0	299	signal1	295	time	32	time	48
+
+signal0	298	signal1	294	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	302	signal1	297	time	32	time	32
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	300	signal1	297	time	32	time	48
+
+signal0	302	signal1	298	time	32	time	32
+
+signal0	304	signal1	300	time	32	time	48
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	303	signal1	297	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	302	signal1	297	time	31	time	48
+
+signal0	302	signal1	298	time	32	time	48
+
+signal0	305	signal1	301	time	32	time	32
+
+signal0	303	signal1	299	time	31	time	48
+
+signal0	300	signal1	296	time	32	time	32
+
+signal0	303	signal1	298	time	32	time	48
+
+signal0	301	signal1	296	time	31	time	48
+
+signal0	304	signal1	300	time	32	time	32
+
+signal0	306	signal1	302	time	32	time	48
+
+signal0	301	signal1	297	time	31	time	31
+
+signal0	304	signal1	300	time	33	time	49
+
+signal0	301	signal1	298	time	32	time	48
+
+signal0	299	signal1	295	time	31	time	31
+
+signal0	303	signal1	297	time	33	time	49
+
+signal0	303	signal1	300	time	32	time	32
+
+signal0	305	signal1	301	time	32	time	47
+
+signal0	308	signal1	303	time	33	time	49
+
+signal0	306	signal1	301	time	32	time	32
+
+signal0	306	signal1	299	time	32	time	47
+
+signal0	306	signal1	302	time	33	time	33
+
+signal0	303	signal1	299	time	32	time	48
+
+signal0	304	signal1	300	time	32	time	47
+
+signal0	303	signal1	299	time	33	time	33
+
+signal0	303	signal1	300	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	302	signal1	297	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	48
+
+signal0	299	signal1	295	time	32	time	32
+
+signal0	302	signal1	295	time	32	time	48
+
+signal0	301	signal1	297	time	32	time	32
+
+signal0	304	signal1	299	time	32	time	48
+
+
+Process finished with exit code -1
