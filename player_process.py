@@ -12,6 +12,7 @@ TODO: then add envelope detection using matlab info
 import time
 import matplotlib
 import matplotlib.pyplot as plt
+import math
 
 
 def shift(seq, num):
@@ -71,9 +72,13 @@ time_list = [0 for i in range(DISPLAY_SIZE)]
 
 hpf_emg0_list = [0 for i in range(DISPLAY_SIZE)]
 
+env_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+env_buf_emg0_list = [0 for i in range(AVG_SIZE)]
+
 emg_counter = 0
 buffer_counter = 0
 initial = False
+secondary = False
 hpf_sign = True
 
 time.sleep(1)
@@ -111,11 +116,6 @@ with open("fake_emg_data.txt", "r") as f:
             print "error"
             continue
 
-        buffer_counter += 1
-        if buffer_counter == AVG_SIZE:
-            initial = True
-            buffer_counter = 0
-
         if not initial:
             emg0_list[emg_counter] = data_split[EMG0_LOC]
             if hpf_sign == False:
@@ -124,6 +124,9 @@ with open("fake_emg_data.txt", "r") as f:
             else:
                 hpf_emg0_list[emg_counter] = int(data_split[EMG0_LOC])
                 hpf_sign = False
+
+            env_buf_emg0_list[buffer_counter] = int(emg0_list[emg_counter])*int(emg0_list[emg_counter])
+            env_emg0_list[emg_counter] = env_buf_emg0_list[emg_counter]
 
         else:
             emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
@@ -134,30 +137,54 @@ with open("fake_emg_data.txt", "r") as f:
                 hpf_emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
                 hpf_sign = False
 
+            env_buf_emg0_list[buffer_counter] = int(emg0_list[emg_counter])*int(emg0_list[emg_counter])
+            if not secondary:
+                env_emg0_list[emg_counter] = env_buf_emg0_list[buffer_counter]
+            else:
+                env_emg0_list[emg_counter] = sum(env_buf_emg0_list)/AVG_SIZE
+                print env_emg0_list[emg_counter]
 
+        env_emg0_list[emg_counter] = math.sqrt(int(env_emg0_list[emg_counter]))
+        print env_buf_emg0_list
+        print env_emg0_list
+
+
+        buffer_counter += 1
         emg_counter += 1
+        if buffer_counter == AVG_SIZE:
+            if initial:
+                secondary = True
+            initial = True
+            buffer_counter = 0
 
         plt.clf()
 
-        plt.subplot(3,1,1)
+        plt.subplot(4,1,1)
         plt.title('Raw EMG0')
         plt.plot(raw_emg0_list)
         plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-        plt.subplot(3,1,2)
+        plt.subplot(4,1,2)
         plt.title('LPF EMG0')
         plt.plot(emg0_list)
         plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-        plt.subplot(3,1,3)
+        plt.subplot(4,1,3)
         plt.title('HPF EMG0')
         plt.plot(hpf_emg0_list)
         plt.axis([0, DISPLAY_SIZE, -375, 375])
 
+        plt.subplot(4,1,4)
+        plt.title('HPF EMG0')
+        plt.plot(env_emg0_list)
+        plt.axis([0, DISPLAY_SIZE, 275, 340])
+
         plt.draw()
-        plt.pause(0.01)
+        plt.pause(0.001)
 
 
+
+        # todo: add new arrays to the offsets
         if emg_counter >= DISPLAY_SIZE:
             emg0_list = shift(emg0_list, DISPLAY_OFFSET)
             emg1_list = shift(emg1_list, DISPLAY_OFFSET)
