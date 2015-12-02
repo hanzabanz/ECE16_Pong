@@ -14,32 +14,44 @@ import matplotlib.pyplot as plt
 import math
 
 
+def shift(seq, num):
+    return seq[num:] + [0 for i in range(num)]
+
+
 def squareFilter(bw, weight):
     filter = []
     for num in range(bw):
         filter.append(weight)
     return filter
 
+
 def highPass(bw, weight):
     filter = [-1, 8, -1]
     return filter
-
 
 # Defining constants
 EMG0_LOC = 1
 EMG1_LOC = 3
 TIME_LOC = 5
 
-TIME_LIMIT = 350
+TIME_LIMIT = 100
 BUFFER_SIZE = 4
-AVG_SIZE = 5
+AVG_SIZE = 5 # only odd numbers work well
 
-DISPLAY_SIZE = 300
+DISPLAY_SIZE = 200
+DISPLAY_OFFSET = DISPLAY_SIZE/20
 
 SHAPE_TYPE = 0
 
 HIGH = 350
 BASE = 300
+
+
+# to write new file
+emg0_file = open("emg_file.txt", "w")
+emg1_file = open("emg1_file.txt", "w")
+time_file = open("time_file.txt", "w")
+# to append, use "a"
 
 
 # create connection to a server on the local computer
@@ -50,52 +62,54 @@ channel = connection.channel()
 channel.queue_declare(queue='player1')
 
 
-# to write new file
-emg0_file = open("emg_file.txt", "w")
-emg1_file = open("emg1_file.txt", "w")
-time_file = open("time_file.txt", "w")
-# to append, use "a"
-
-
-ser = serial.Serial('COM3', 9600)
+ser = serial.Serial('COM6', 9600)
 
 # set to 0 as the baseline (baseline should be normalized in arduino)
-emg0_buffer = [0 for i in range(BUFFER_SIZE)]
-emg1_buffer = [0 for i in range(BUFFER_SIZE)]
+raw_emg0_list = [0 for i in range(DISPLAY_SIZE)]
 
-# emg0_list = [0 for i in range(DISPLAY_SIZE)]
-# emg1_list = [0 for i in range(DISPLAY_SIZE)]
-# time_list = [i for i in range(DISPLAY_SIZE)]
+emg0_buffer = [0 for i in range(AVG_SIZE)]
+emg1_buffer = [0 for i in range(AVG_SIZE)]
 
-emg0_list = []
-emg1_list = []
-time_list = []
+raw_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+
+emg0_list = [0 for i in range(DISPLAY_SIZE)]
+emg1_list = [0 for i in range(DISPLAY_SIZE)]
+time_list = [0 for i in range(DISPLAY_SIZE)]
+
+hpf_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+
+env_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+env_buf_emg0_list = [0 for i in range(AVG_SIZE)]
 
 emg_counter = 0
+buffer_counter = 0
+initial = False
+secondary = False
+hpf_sign = True
+list_counter = 0
+display_counter = 0
 
 time.sleep(1)
 
 beg = time.time()
 end = time.time() + TIME_LIMIT # end is equal to time in x seconds, x being the int at the end
 
-counter = 0
-list_counter = 0
-output = 0
-direction = 0
-delay = 0
-base_counter = 0
+# plt.figure()
+# plt.ion()
+# plt.show()
 
 
 while time.time() < end:
     data = ser.readline()
     data_split = data.split('\t')
-    if len(data_split) < 3:
-        print "length"
+    if len(data_split) < 5:
         continue
 
     try:
-        emg0_buffer[emg_counter] = int(data_split[EMG0_LOC])
-        emg1_buffer[emg_counter] = int(data_split[EMG1_LOC])
+        emg0_buffer[buffer_counter] = int(data_split[EMG0_LOC])
+        emg1_buffer[buffer_counter] = int(data_split[EMG1_LOC])
+        raw_emg0_list[emg_counter] = int(data_split[EMG0_LOC])
+
         time_signal = int(data_split[TIME_LOC])
 
         emg0_file.write(str(data_split[EMG0_LOC]))
@@ -104,94 +118,96 @@ while time.time() < end:
         emg1_file.write('\n')
         time_file.write(str(data_split[TIME_LOC]))
     except ValueError:
+        print "error"
         continue
 
+    if not initial:
+        emg0_list[emg_counter] = data_split[EMG0_LOC]
+        if hpf_sign == False:
+            hpf_emg0_list[emg_counter] = -int(data_split[EMG0_LOC])
+            hpf_sign = True
+        else:
+            hpf_emg0_list[emg_counter] = int(data_split[EMG0_LOC])
+            hpf_sign = False
 
-    emg_counter += 1
-    if emg_counter == BUFFER_SIZE:
-        emg_counter = 0
-        ## RESET X AXIS ##
-    #     emg0_list = [0 for i in range(BUFFER_SIZE)]
-    #     emg1_list = [0 for i in range(BUFFER_SIZE)]
+        env_buf_emg0_list[buffer_counter] = int(emg0_list[emg_counter])*int(emg0_list[emg_counter])
+        env_emg0_list[emg_counter] = env_buf_emg0_list[emg_counter]
 
-    temp0_list = [0,0,0]
-    temp1_list = [0,0,0]
+    else:
+        emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
+        if hpf_sign == False:
+            hpf_emg0_list[emg_counter] = -sum(emg0_buffer)/AVG_SIZE
+            hpf_sign = True
+        else:
+            hpf_emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
+            hpf_sign = False
 
-    # IMPLEMENT SHAPE SMOOTHING
-    for i in range(BUFFER_SIZE-2):
-        filter = squareFilter(BUFFER_SIZE, 1)
-        temp0_list[i] = (emg0_buffer[i] + emg0_buffer[i+1] + emg0_buffer[i+2])/3
-        temp1_list[i] = (emg0_buffer[i] + emg0_buffer[i+1] + emg0_buffer[i+2])/3
+        env_buf_emg0_list[buffer_counter] = int(emg0_list[emg_counter])*int(emg0_list[emg_counter])
+        if not secondary:
+            env_emg0_list[emg_counter] = env_buf_emg0_list[buffer_counter]
+        else:
+            env_emg0_list[emg_counter] = sum(env_buf_emg0_list)/AVG_SIZE
 
-    og_counter = len(emg0_list)-1
+    env_emg0_list[emg_counter] = math.sqrt(int(env_emg0_list[emg_counter]))
 
-    if temp0_list[0] > 10:
-        emg0_list.append(temp0_list[0])
-        emg1_list.append(0)
-        list_counter += 1
-    if temp0_list[1] > 10:
-        emg0_list.append(temp0_list[1])
-        emg1_list.append(0)
-        list_counter += 1
-    if temp0_list[2] > 10:
-        emg0_list.append(temp0_list[2])
-        emg1_list.append(0)
-        list_counter += 1
-
-    if delay == 5:
-        if(290 < emg0_list[og_counter] < 310):
-            base_counter += 1
-            if(base_counter == 10):
-                output = 0
-                base_counter = 0
-        if(310 < emg0_list[og_counter] < 410):
-            temp = emg0_list[og_counter]
-            temp -= 310
-            temp /= 10
-            if direction == 0:
-                output = temp
-                direction = 1
-            elif direction == 1:
-                output = 0
-                direction = 0
-
-            if output < 0:
-                output = 0
-            elif output > 10:
-                output = 10
-
-            base_counter = 0
-
+    value = env_emg0_list[emg_counter]
+    if value > 310:
+        output = 10 - int((330-value)/2)
         channel.basic_publish(exchange='', routing_key='player1', body=str(output))
-        delay = 0
-    delay += 1
 
-    plt.clf()
+    buffer_counter += 1
+    emg_counter += 1
+    if buffer_counter == AVG_SIZE:
+        if initial:
+            secondary = True
+        initial = True
+        buffer_counter = 0
 
-    # plot emg
-    plt.subplot(2,1,1)
-    plt.title('EMG 0')
-    plt.axis([0,200, -100,600])
-    plt.plot(emg0_list)
 
-    # plot sync
-    plt.subplot(2,1,2)
-    plt.title('EMG 1')
-    plt.plot(emg1_list)
+    # plt.clf()
+    #
+    # plt.subplot(4,1,1)
+    # plt.title('Raw EMG0')
+    # plt.plot(raw_emg0_list)
+    # plt.axis([0, DISPLAY_SIZE, 275, 340])
+    #
+    # plt.subplot(4,1,2)
+    # plt.title('LPF EMG0')
+    # plt.plot(emg0_list)
+    # plt.axis([0, DISPLAY_SIZE, 275, 340])
+    #
+    # plt.subplot(4,1,3)
+    # plt.title('HPF EMG0')
+    # plt.plot(hpf_emg0_list)
+    # plt.axis([0, DISPLAY_SIZE, -375, 375])
+    #
+    # plt.subplot(4,1,4)
+    # plt.title('HPF EMG0')
+    # plt.plot(env_emg0_list)
+    # plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-    plt.draw()
+    # display_counter += 1
+    # if display_counter == 2:
+    #     plt.clf()
+    #
+    #     plt.title('HPF EMG0')
+    #     plt.plot(env_emg0_list)
+    #     plt.axis([0, DISPLAY_SIZE, 275, 340])
+    #     display_counter = 0
+    #     plt.draw()
+    #     plt.pause(0.0001)
 
-    # if emg0_list[list_counter+1] < 300:
-    #     if temp > 1:
 
-    # time_list.append(time_signal)
-
-    if list_counter >= DISPLAY_SIZE:
-        emg0_list = []
-        emg1_list = []
-        list_counter = 0
+    # todo: add new arrays to the offsets
+    if emg_counter >= DISPLAY_SIZE:
+        emg0_list = shift(emg0_list, DISPLAY_OFFSET)
+        emg1_list = shift(emg1_list, DISPLAY_OFFSET)
+        raw_emg0_list = shift(raw_emg0_list, DISPLAY_OFFSET)
+        env_emg0_list = shift(env_emg0_list, DISPLAY_OFFSET)
+        emg_counter = DISPLAY_SIZE - DISPLAY_OFFSET
 
 connection.close()
+plt.savefig('plot')
 emg0_file.close()
 emg1_file.close()
 time_file.close()

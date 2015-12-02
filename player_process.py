@@ -3,10 +3,10 @@ __author__ = 'hannah'
 
 """
 LPF implemented.
+HPF implemented.
+Env implemented.
 
-TODO: hpf_emg0_list is the hpf values, need to add to plot
-TODO: then add envelope detection using matlab info
-
+TODO: Mapping
 """
 
 import time
@@ -40,7 +40,7 @@ TIME_LIMIT = 100
 BUFFER_SIZE = 4
 AVG_SIZE = 5 # only odd numbers work well
 
-DISPLAY_SIZE = 150
+DISPLAY_SIZE = 500
 DISPLAY_OFFSET = DISPLAY_SIZE/20
 
 SHAPE_TYPE = 0
@@ -80,6 +80,8 @@ buffer_counter = 0
 initial = False
 secondary = False
 hpf_sign = True
+
+display_counter = 0
 
 time.sleep(1)
 
@@ -142,11 +144,9 @@ with open("fake_emg_data.txt", "r") as f:
                 env_emg0_list[emg_counter] = env_buf_emg0_list[buffer_counter]
             else:
                 env_emg0_list[emg_counter] = sum(env_buf_emg0_list)/AVG_SIZE
-                print env_emg0_list[emg_counter]
 
         env_emg0_list[emg_counter] = math.sqrt(int(env_emg0_list[emg_counter]))
-        print env_buf_emg0_list
-        print env_emg0_list
+        print env_emg0_list[emg_counter]
 
 
         buffer_counter += 1
@@ -157,27 +157,37 @@ with open("fake_emg_data.txt", "r") as f:
             initial = True
             buffer_counter = 0
 
-        plt.clf()
+        # plt.clf()
 
-        plt.subplot(4,1,1)
-        plt.title('Raw EMG0')
-        plt.plot(raw_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 275, 340])
+        # plt.subplot(4,1,1)
+        # plt.title('Raw EMG0')
+        # plt.plot(raw_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+        #
+        # plt.subplot(4,1,2)
+        # plt.title('LPF EMG0')
+        # plt.plot(emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+        #
+        # plt.subplot(4,1,3)
+        # plt.title('HPF EMG0')
+        # plt.plot(hpf_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, -375, 375])
+        #
+        # plt.subplot(4,1,4)
+        # plt.title('HPF EMG0')
+        # plt.plot(env_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-        plt.subplot(4,1,2)
-        plt.title('LPF EMG0')
-        plt.plot(emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 275, 340])
+        display_counter += 1
+        if display_counter == 5:
+            plt.clf()
 
-        plt.subplot(4,1,3)
-        plt.title('HPF EMG0')
-        plt.plot(hpf_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, -375, 375])
+            plt.title('HPF EMG0')
+            plt.plot(env_emg0_list)
+            plt.axis([0, DISPLAY_SIZE, 275, 340])
+            display_counter = 0
 
-        plt.subplot(4,1,4)
-        plt.title('HPF EMG0')
-        plt.plot(env_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 275, 340])
 
         plt.draw()
         plt.pause(0.001)
@@ -189,6 +199,7 @@ with open("fake_emg_data.txt", "r") as f:
             emg0_list = shift(emg0_list, DISPLAY_OFFSET)
             emg1_list = shift(emg1_list, DISPLAY_OFFSET)
             raw_emg0_list = shift(raw_emg0_list, DISPLAY_OFFSET)
+            env_emg0_list = shift(env_emg0_list, DISPLAY_OFFSET)
             emg_counter = DISPLAY_SIZE - DISPLAY_OFFSET
 
 plt.savefig('plot')
