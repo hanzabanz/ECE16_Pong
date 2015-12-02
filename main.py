@@ -18,7 +18,7 @@ import time
 
 # Number of frames per second
 # Change this value to speed up or slow down your game
-FPS = 200
+FPS = 100
 
 #Global Variables to be used through our program
 
@@ -29,10 +29,10 @@ WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
 LINETHICKNESS = 10
 BALLTHICKNESS = 10
-PADDLESIZE = 50
+PADDLESIZE = 70
 PADDLEOFFSET = 20
 
-SPEEDMULTIPLIER = 4
+SPEEDMULTIPLIER = 1
 
 # Set up the colours
 BLACK     = (0  ,0  ,0  )

@@ -71,15 +71,20 @@ emg0_buffer = [0 for i in range(AVG_SIZE)]
 emg1_buffer = [0 for i in range(AVG_SIZE)]
 
 raw_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+raw_emg1_list = [0 for i in range(DISPLAY_SIZE)]
 
 emg0_list = [0 for i in range(DISPLAY_SIZE)]
 emg1_list = [0 for i in range(DISPLAY_SIZE)]
 time_list = [0 for i in range(DISPLAY_SIZE)]
 
 hpf_emg0_list = [0 for i in range(DISPLAY_SIZE)]
+hpf_emg1_list = [0 for i in range(DISPLAY_SIZE)]
 
 env_emg0_list = [0 for i in range(DISPLAY_SIZE)]
 env_buf_emg0_list = [0 for i in range(AVG_SIZE)]
+
+env_emg1_list = [0 for i in range(DISPLAY_SIZE)]
+env_buf_emg1_list = [0 for i in range(AVG_SIZE)]
 
 emg_counter = 0
 buffer_counter = 0
@@ -94,9 +99,9 @@ time.sleep(1)
 beg = time.time()
 end = time.time() + TIME_LIMIT # end is equal to time in x seconds, x being the int at the end
 
-# plt.figure()
-# plt.ion()
-# plt.show()
+plt.figure()
+plt.ion()
+plt.show()
 
 
 while time.time() < end:
@@ -109,6 +114,7 @@ while time.time() < end:
         emg0_buffer[buffer_counter] = int(data_split[EMG0_LOC])
         emg1_buffer[buffer_counter] = int(data_split[EMG1_LOC])
         raw_emg0_list[emg_counter] = int(data_split[EMG0_LOC])
+        raw_emg1_list[emg_counter] = int(data_split[EMG1_LOC])
 
         time_signal = int(data_split[TIME_LOC])
 
@@ -123,37 +129,68 @@ while time.time() < end:
 
     if not initial:
         emg0_list[emg_counter] = data_split[EMG0_LOC]
+        emg1_list[emg_counter] = data_split[EMG1_LOC]
         if hpf_sign == False:
             hpf_emg0_list[emg_counter] = -int(data_split[EMG0_LOC])
+            hpf_emg1_list[emg_counter] = -int(data_split[EMG1_LOC])
             hpf_sign = True
         else:
             hpf_emg0_list[emg_counter] = int(data_split[EMG0_LOC])
+            hpf_emg1_list[emg_counter] = int(data_split[EMG1_LOC])
             hpf_sign = False
 
         env_buf_emg0_list[buffer_counter] = int(emg0_list[emg_counter])*int(emg0_list[emg_counter])
         env_emg0_list[emg_counter] = env_buf_emg0_list[emg_counter]
+        env_buf_emg1_list[buffer_counter] = int(emg1_list[emg_counter])*int(emg1_list[emg_counter])
+        env_emg1_list[emg_counter] = env_buf_emg1_list[emg_counter]
 
     else:
         emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
+        emg1_list[emg_counter] = sum(emg1_buffer)/AVG_SIZE
         if hpf_sign == False:
             hpf_emg0_list[emg_counter] = -sum(emg0_buffer)/AVG_SIZE
+            hpf_emg1_list[emg_counter] = -sum(emg1_buffer)/AVG_SIZE
             hpf_sign = True
         else:
             hpf_emg0_list[emg_counter] = sum(emg0_buffer)/AVG_SIZE
+            hpf_emg1_list[emg_counter] = sum(emg1_buffer)/AVG_SIZE
             hpf_sign = False
 
         env_buf_emg0_list[buffer_counter] = int(emg0_list[emg_counter])*int(emg0_list[emg_counter])
+        env_buf_emg1_list[buffer_counter] = int(emg1_list[emg_counter])*int(emg1_list[emg_counter])
         if not secondary:
             env_emg0_list[emg_counter] = env_buf_emg0_list[buffer_counter]
+            env_emg1_list[emg_counter] = env_buf_emg1_list[buffer_counter]
         else:
             env_emg0_list[emg_counter] = sum(env_buf_emg0_list)/AVG_SIZE
+            env_emg1_list[emg_counter] = sum(env_buf_emg1_list)/AVG_SIZE
 
     env_emg0_list[emg_counter] = math.sqrt(int(env_emg0_list[emg_counter]))
+    env_emg1_list[emg_counter] = math.sqrt(int(env_emg1_list[emg_counter]))
 
-    value = env_emg0_list[emg_counter]
-    if value > 310:
-        output = 10 - int((330-value)/2)
-        channel.basic_publish(exchange='', routing_key='player1', body=str(output))
+
+    temp0 = 0
+    temp1 = 0
+    value0 = env_emg0_list[emg_counter]
+    value1 = env_emg1_list[emg_counter]
+
+    # print "%f\t%f" %(value0, value1)
+
+    if value0 > 306:
+        temp0 = 10 - int((321-value0)/1.5)
+    if value1 > 305:
+        temp1 = -(10 - int((320-value1)/1.5))
+
+
+    output = str(temp0 + temp1)
+
+    if temp1 != 0:
+        output = str(temp1)
+
+    # print "%f\t%f\t%s" %(temp0, temp1, output)
+
+    # output = str(temp0 + temp1)
+    channel.basic_publish(exchange='', routing_key='player1', body=output)
 
     buffer_counter += 1
     emg_counter += 1
@@ -187,16 +224,26 @@ while time.time() < end:
     # plt.axis([0, DISPLAY_SIZE, 275, 340])
 
     # display_counter += 1
-    # if display_counter == 2:
+    # if display_counter == 5:
     #     plt.clf()
     #
+    #     plt.subplot(2,1,1)
     #     plt.title('HPF EMG0')
     #     plt.plot(env_emg0_list)
     #     plt.axis([0, DISPLAY_SIZE, 275, 340])
+    #
+    #     plt.subplot(2,1,2)
+    #     plt.title('HPF EMG1')
+    #     plt.plot(env_emg1_list)
+    #     plt.axis([0, DISPLAY_SIZE, 275, 340])
     #     display_counter = 0
     #     plt.draw()
+    #
     #     plt.pause(0.0001)
 
+    # plt.draw()
+    #
+    # plt.pause(0.0001)
 
     # todo: add new arrays to the offsets
     if emg_counter >= DISPLAY_SIZE:
@@ -204,6 +251,12 @@ while time.time() < end:
         emg1_list = shift(emg1_list, DISPLAY_OFFSET)
         raw_emg0_list = shift(raw_emg0_list, DISPLAY_OFFSET)
         env_emg0_list = shift(env_emg0_list, DISPLAY_OFFSET)
+
+        emg1_list = shift(emg1_list, DISPLAY_OFFSET)
+        emg1_list = shift(emg1_list, DISPLAY_OFFSET)
+        raw_emg1_list = shift(raw_emg1_list, DISPLAY_OFFSET)
+        env_emg1_list = shift(env_emg1_list, DISPLAY_OFFSET)
+
         emg_counter = DISPLAY_SIZE - DISPLAY_OFFSET
 
 connection.close()
