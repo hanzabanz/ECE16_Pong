@@ -6,6 +6,10 @@ Currently randomized, but the paddle inputs are -10 to 10 (neg = down, pos = up)
 
 For added difficulty: Change FPS to speed up, change the SPEEDMULTIPLIER to have faster effects
 - Tests latency of project
+
+
+
+** Input by position, not velocity
 """
 
 import sys
@@ -29,9 +33,9 @@ WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
 LINETHICKNESS = 10
 BALLTHICKNESS = 10
-PADDLESIZE = 70
+PADDLESIZE = 85
 PADDLEOFFSET = 20
-
+0
 SPEEDMULTIPLIER = 1
 
 # Set up the colours

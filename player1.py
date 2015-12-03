@@ -17,24 +17,12 @@ import math
 def shift(seq, num):
     return seq[num:] + [0 for i in range(num)]
 
-
-def squareFilter(bw, weight):
-    filter = []
-    for num in range(bw):
-        filter.append(weight)
-    return filter
-
-
-def highPass(bw, weight):
-    filter = [-1, 8, -1]
-    return filter
-
 # Defining constants
 EMG0_LOC = 1
 EMG1_LOC = 3
 TIME_LOC = 5
 
-TIME_LIMIT = 100
+TIME_LIMIT = 500
 BUFFER_SIZE = 4
 AVG_SIZE = 5 # only odd numbers work well
 
@@ -93,6 +81,10 @@ secondary = False
 hpf_sign = True
 list_counter = 0
 display_counter = 0
+
+init_time = 0
+
+plot_num = 0
 
 time.sleep(1)
 
@@ -174,20 +166,34 @@ while time.time() < end:
     value0 = env_emg0_list[emg_counter]
     value1 = env_emg1_list[emg_counter]
 
-    # print "%f\t%f" %(value0, value1)
+    print "%f\t%f" %(value0, value1)
 
-    if value0 > 306:
-        temp0 = 10 - int((321-value0)/1.5)
-    if value1 > 305:
-        temp1 = -(10 - int((320-value1)/1.5))
+    # if time.time() - init_time > 0.5:
+    #     if value0 > 307 or value0 < 298:
+    #         # temp0 = 10 - int((324-value0)/1.5)
+    #         temp0 = 3
+    #         wait = True
+    #         init_time = time.time()
+    #     if value1 > 305 or value1 < 296:
+    #         # temp1 = -(10 - int((319-value1)/1.5))
+    #         temp1 = -3
+    #         wait = True
+    #         init_time = time.time()
+
+    if value0 > 308 or value0 < 297:
+        # temp0 = 10 - int((324-value0)/1.5)
+        temp0 = 3
+    if value1 > 306 or value1 < 295:
+        # temp1 = -(10 - int((319-value1)/1.5))
+        temp1 = -3
 
 
     output = str(temp0 + temp1)
 
-    if temp1 != 0:
-        output = str(temp1)
+    # if temp0 != 0:
+    #     output = str(temp0)
 
-    # print "%f\t%f\t%s" %(temp0, temp1, output)
+    print "%f\t%f\t%s" %(temp0, temp1, output)
 
     # output = str(temp0 + temp1)
     channel.basic_publish(exchange='', routing_key='player1', body=output)
@@ -223,23 +229,23 @@ while time.time() < end:
     # plt.plot(env_emg0_list)
     # plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-    # display_counter += 1
-    # if display_counter == 5:
-    #     plt.clf()
-    #
-    #     plt.subplot(2,1,1)
-    #     plt.title('HPF EMG0')
-    #     plt.plot(env_emg0_list)
-    #     plt.axis([0, DISPLAY_SIZE, 275, 340])
-    #
-    #     plt.subplot(2,1,2)
-    #     plt.title('HPF EMG1')
-    #     plt.plot(env_emg1_list)
-    #     plt.axis([0, DISPLAY_SIZE, 275, 340])
-    #     display_counter = 0
-    #     plt.draw()
-    #
-    #     plt.pause(0.0001)
+    display_counter += 1
+    if display_counter == 5:
+        plt.clf()
+
+        # plt.subplot(2,1,1)
+        # plt.title('HPF EMG0')
+        # plt.plot(env_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+
+        # plt.subplot(2,1,2)
+        # plt.title('HPF EMG1')
+        # plt.plot(env_emg1_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+        # display_counter = 0
+        # plt.draw()
+
+        # plt.pause(0.0001)
 
     # plt.draw()
     #
@@ -258,6 +264,10 @@ while time.time() < end:
         env_emg1_list = shift(env_emg1_list, DISPLAY_OFFSET)
 
         emg_counter = DISPLAY_SIZE - DISPLAY_OFFSET
+
+        # plot_name = "plot_" + str(plot_num)
+        # plt.savefig(plot_name)
+        # plot_num += 1
 
 connection.close()
 plt.savefig('plot')
