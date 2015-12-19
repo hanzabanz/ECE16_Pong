@@ -2,14 +2,18 @@ __author__ = ''
 """
 Adapted from: http://trevorappleton.blogspot.com/2014/04/writing-pong-using-python-and-pygame.html
 
-Currently randomized, but the paddle inputs are -10 to 10 (neg = down, pos = up)
-
-For added difficulty: Change FPS to speed up, change the SPEEDMULTIPLIER to have faster effects
+For added difficulty: Change the SPEEDMULTIPLIER to have faster effects (affects ball speed, not frame rate or otherwise)
 - Tests latency of project
-
+For accuracy of control: Change INPUTRANGE ranges from -value to +value. Uses these values to map the position of a paddle.
 
 
 ** Input by position, not velocity
+
+Y position:
+15 = LINETHICKNESS + (BALLTHICKNESS/2)
+16
+...
+585
 """
 
 import sys
@@ -19,10 +23,9 @@ from pygame.locals import *
 import pika
 import time
 
-
 # Number of frames per second
 # Change this value to speed up or slow down your game
-FPS = 100
+FPS = 200
 
 #Global Variables to be used through our program
 
@@ -33,10 +36,19 @@ WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
 LINETHICKNESS = 10
 BALLTHICKNESS = 10
-PADDLESIZE = 85
+PADDLESIZE = 120
 PADDLEOFFSET = 20
-0
-SPEEDMULTIPLIER = 1
+SPEEDMULTIPLIER = 2
+
+INPUTRANGE = 5
+
+POSBOUNDARY = LINETHICKNESS + (BALLTHICKNESS/2)
+WINDOWTOP = POSBOUNDARY
+WINDOWBOTTOM = WINDOWHEIGHT - POSBOUNDARY
+WINDOWBOTTOM = WINDOWHEIGHT - POSBOUNDARY
+WINDOWSCALEOFFSET = (WINDOWBOTTOM-WINDOWTOP)/2
+SCALE = (WINDOWBOTTOM-WINDOWTOP)/((2*INPUTRANGE))
+
 
 # Set up the colours
 BLACK     = (0  ,0  ,0  )
@@ -69,46 +81,47 @@ def drawBall(ball):
 
 #moves the ball returns new position
 def moveBall(ball, ballDirX, ballDirY):
-    ball.x += ballDirX
-    ball.y += ballDirY
+    ball.x += (ballDirX)*SPEEDMULTIPLIER
+    ball.y += (ballDirY)*SPEEDMULTIPLIER
     return ball
 
 #Checks for a collision with a wall, and 'bounces' ball off it.
 #Returns new direction
 def checkEdgeCollision(ball, ballDirX, ballDirY):
-    if ball.top == (LINETHICKNESS) or ball.bottom == (WINDOWHEIGHT - LINETHICKNESS):
+    if ball.top <= (LINETHICKNESS) or ball.bottom >= (WINDOWHEIGHT - LINETHICKNESS):
         ballDirY = ballDirY * -1
-    if ball.left == (LINETHICKNESS) or ball.right == (WINDOWWIDTH - LINETHICKNESS):
+    if ball.left <= (LINETHICKNESS) or ball.right >= (WINDOWWIDTH - LINETHICKNESS):
         ballDirX = ballDirX * -1
     return ballDirX, ballDirY
 
 #Checks is the ball has hit a paddle, and 'bounces' ball off it.
 def checkHitBall(ball, paddle1, paddle2, ballDirX):
-    if ballDirX == -1 and paddle1.right == ball.left and paddle1.top < (ball.top + ball.height) and paddle1.bottom > (ball.bottom - ball.height):
+    if ballDirX == -1 and paddle1.right >= ball.left and paddle1.top < (ball.top + (ball.height/2)) and paddle1.bottom > (ball.bottom - (ball.height/2)):
         return -1
-    elif ballDirX == 1 and paddle2.left == ball.right and paddle2.top < (ball.top + ball.height) and paddle2.bottom > (ball.bottom - ball.height):
+    elif ballDirX == 1 and paddle2.left <= ball.right and paddle2.top < (ball.top + (ball.height/2)) and paddle2.bottom > (ball.bottom - (ball.height/2)):
         return -1
     else: return 1
+
 
 #Checks to see if a point has been scored returns new score
 def checkPointScored(paddle1, paddle2, ball, scoreOne, scoreTwo, ballDirX):
     #reset points if left wall is hit
-    if ball.left == LINETHICKNESS:
+    if ball.left <= LINETHICKNESS:
         scoreOne = 0
     #1 point for hitting the ball
-    elif ballDirX == -1 and paddle1.right == ball.left and paddle1.top < ball.top and paddle1.bottom > ball.bottom:
+    elif ballDirX == -1 and paddle1.right >= ball.left and paddle1.top < (ball.top + (ball.height/2)) and paddle1.bottom > (ball.bottom - (ball.height/2)):
         scoreOne += 1
     #5 points for beating the other paddle
-    elif ball.right == WINDOWWIDTH - LINETHICKNESS:
+    elif ball.right >= WINDOWWIDTH - LINETHICKNESS:
         scoreOne += 5
 
-    if ball.right == WINDOWWIDTH - LINETHICKNESS:
+    if ball.right >= WINDOWWIDTH - LINETHICKNESS:
         scoreTwo = 0
     #1 point for hitting the ball
-    elif ballDirX == 1 and paddle2.left == ball.right and paddle2.top < ball.top and paddle2.bottom > ball.bottom:
+    elif ballDirX == 1 and paddle2.left <= ball.right and paddle2.top < (ball.top + (ball.height/2)) and paddle2.bottom > (ball.bottom - (ball.height/2)):
         scoreTwo += 1
     #5 points for beating the other paddle
-    elif ball.left == LINETHICKNESS:
+    elif ball.left <= LINETHICKNESS:
         scoreTwo += 5
 
     return (scoreOne, scoreTwo)
@@ -132,11 +145,20 @@ def artificialIntelligence(ball, ballDirX, paddle2):
 
 
 def updatePaddle(paddle, input):
-    # input range -1 to 1 for speed and direction (+ means up, 1 means down)
-    if paddle.top == WINDOWHEIGHT or paddle.bottom == -WINDOWHEIGHT:
+    if input > WINDOWBOTTOM:
+        paddle.centery = WINDOWBOTTOM
         return
-    paddle.y -= (input*SPEEDMULTIPLIER)
+    elif input < WINDOWTOP:
+        paddle.centery = WINDOWTOP
+        return
+    # scaledInput = float((input*SCALE) + WINDOWSCALEOFFSET)
+    # print "%f\t%f\t%f" %(input, input*SCALE, scaledInput)
 
+    # if paddle.centery < input-1: # paddle higher than desired position
+    #     paddle.y += SPEEDMULTIPLIER # move paddle down
+    # elif input+1 < paddle.centery:
+    #     paddle.y -= SPEEDMULTIPLIER # move paddle up
+    paddle.centery = input
 
 #Displays the current score on the screen
 def displayScore(score_left, score_right):
@@ -155,8 +177,31 @@ def displayTeamNames():
     resultRect.centery = WINDOWHEIGHT/6
     DISPLAYSURF.blit(resultSurf, resultRect)
 
+def locationMap():
+    halfRange = float(((WINDOWBOTTOM-WINDOWTOP)/2) + WINDOWTOP)
+    scale = float((halfRange-WINDOWTOP-(PADDLESIZE/2))/(INPUTRANGE))
+    adjustedBottom = WINDOWBOTTOM+(PADDLESIZE/2)
+    map = []
+    map.append(WINDOWTOP + (PADDLESIZE/2))
+    for i in range(INPUTRANGE-1):
+        # map.append(scale + WINDOWTOP + i*scale - (PADDLESIZE/2))
+        map.append(map[i]+scale)
+    map.append(halfRange)
+    for i in range(INPUTRANGE-1):
+        # map.append((PADDLESIZE/2) + scale + WINDOWTOP + (i+INPUTRANGE)*scale)
+        map.append(map[INPUTRANGE+i]+scale)
+    map.append(WINDOWBOTTOM - (PADDLESIZE/2))
+
+    map = list(reversed(map))
+
+    # print map
+    return map
+
+
 #Main function
 def main():
+    map = locationMap()
+
     pygame.init()
     global DISPLAYSURF
     ##Font information
@@ -176,6 +221,9 @@ def main():
     playerTwoPosition = (WINDOWHEIGHT - PADDLESIZE) /2
     scoreOne = 0
     scoreTwo = 0
+
+    newPosOne = True
+    newPosTwo = True
 
     #Keeps track of ball direction
     ballDirX = -1 ## -1 = left 1 = right
@@ -202,7 +250,6 @@ def main():
     # create player input queues
     channel.queue_declare(queue='player1')
     channel.queue_declare(queue='player2')
-    channel.queue_declare(queue='dlx')
 
     rand_counter = 0
 
@@ -230,6 +277,7 @@ def main():
         drawBall(ball)
 
         ball = moveBall(ball, ballDirX, ballDirY)
+        print ball
         ballDirX, ballDirY = checkEdgeCollision(ball, ballDirX, ballDirY)
 
         # RANDOM INPUTS, used for randomizing input, when there is no scripts feeding inputs
@@ -248,6 +296,7 @@ def main():
             channel.stop_consuming()
             inputOne = float(body)
             print "%s\t%s" %(inputOne, str(time.time()))
+            # print inputOne
 
         method_frame, header_frame, body = channel.basic_get(queue = 'player2')
         if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
@@ -257,8 +306,11 @@ def main():
             channel.stop_consuming()
             inputTwo = float(body)
 
-        updatePaddle(paddle1, float(inputOne))
-        updatePaddle(paddle2, float(inputTwo))
+
+        realInputOne = map[int(inputOne)+INPUTRANGE]
+        updatePaddle(paddle1, realInputOne)
+        realInputTwo = map[int(inputTwo)+INPUTRANGE]
+        updatePaddle(paddle2, realInputTwo)
 
         scoreOne, scoreTwo = checkPointScored(paddle1, paddle2, ball, scoreOne, scoreTwo, ballDirX)
         ballDirX = ballDirX * checkHitBall(ball, paddle1, paddle2, ballDirX)
