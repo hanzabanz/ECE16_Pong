@@ -6,7 +6,7 @@ LPF implemented.
 HPF implemented.
 Env implemented.
 
-Only for EMG0.
+EMG0 and EMG1 both implemented.
 """
 
 import time
@@ -158,27 +158,27 @@ with open("fake_emg_data.txt", "r") as f:
             initial = True
             buffer_counter = 0
 
-        plt.clf()
-
-        plt.subplot(4,1,1)
-        plt.title('Raw EMG0')
-        plt.plot(raw_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 275, 340])
-
-        plt.subplot(4,1,2)
-        plt.title('LPF EMG0')
-        plt.plot(emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 275, 340])
-
-        plt.subplot(4,1,3)
-        plt.title('HPF EMG0')
-        plt.plot(hpf_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, -375, 375])
-
-        plt.subplot(4,1,4)
-        plt.title('HPF EMG0')
-        plt.plot(env_emg0_list)
-        plt.axis([0, DISPLAY_SIZE, 275, 340])
+        # plt.clf()
+        #
+        # plt.subplot(4,1,1)
+        # plt.title('Raw EMG0')
+        # plt.plot(raw_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+        #
+        # plt.subplot(4,1,2)
+        # plt.title('LPF EMG0')
+        # plt.plot(emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+        #
+        # plt.subplot(4,1,3)
+        # plt.title('HPF EMG0')
+        # plt.plot(hpf_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, -375, 375])
+        #
+        # plt.subplot(4,1,4)
+        # plt.title('HPF EMG0')
+        # plt.plot(env_emg0_list)
+        # plt.axis([0, DISPLAY_SIZE, 275, 340])
 
         # display_counter += 1
         # if display_counter == 5:
@@ -193,9 +193,6 @@ with open("fake_emg_data.txt", "r") as f:
         plt.draw()
         plt.pause(0.001)
 
-
-
-        # todo: add new arrays to the offsets
         if emg_counter >= DISPLAY_SIZE:
             emg0_list = shift(emg0_list, DISPLAY_OFFSET)
             emg1_list = shift(emg1_list, DISPLAY_OFFSET)

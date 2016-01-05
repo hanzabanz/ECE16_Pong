@@ -1,17 +1,13 @@
-__author__ = 'hannah'
-
-
-"""
-Simple filters.
-
--> Buffer[] is a queue where the new filter is applied each time
-"""
-
 import serial
 import time
 import pika
 import matplotlib.pyplot as plt
 import math
+
+__author__ = 'hannah'
+"""
+Simple implementation of EMG control.
+"""
 
 
 def shift(seq, num):
@@ -31,8 +27,12 @@ DISPLAY_OFFSET = DISPLAY_SIZE/20
 
 SHAPE_TYPE = 0
 
+# Individual calibration values to be changed every time
 HIGH = 350
 BASE = 300
+
+UPPER_BOUND = 20
+LOWER_BOUND = -20
 
 
 # to write new file
@@ -48,8 +48,6 @@ channel = connection.channel()
 
 # create queue
 channel.queue_declare(queue='player1')
-
-
 ser = serial.Serial('COM6', 9600)
 
 # set to 0 as the baseline (baseline should be normalized in arduino)
@@ -85,6 +83,9 @@ display_counter = 0
 init_time = 0
 
 plot_num = 0
+
+# internal tracking of paddle position
+y_pos = 0
 
 time.sleep(1)
 
@@ -168,35 +169,33 @@ while time.time() < end:
 
     print "%f\t%f" %(value0, value1)
 
-    # if time.time() - init_time > 0.5:
-    #     if value0 > 307 or value0 < 298:
-    #         # temp0 = 10 - int((324-value0)/1.5)
-    #         temp0 = 3
-    #         wait = True
-    #         init_time = time.time()
-    #     if value1 > 305 or value1 < 296:
-    #         # temp1 = -(10 - int((319-value1)/1.5))
-    #         temp1 = -3
-    #         wait = True
-    #         init_time = time.time()
-
+    # Set internal velocity values
     if value0 > 308 or value0 < 297:
         # temp0 = 10 - int((324-value0)/1.5)
-        temp0 = 3
+        temp0 = 2
     if value1 > 306 or value1 < 295:
         # temp1 = -(10 - int((319-value1)/1.5))
-        temp1 = -3
+        temp1 = -2
 
+    # Convert velocity values to y axis position
+    if temp0 > 0:
+        y_pos += temp0
+    if temp1 < 0:
+        y_pos += temp1
 
-    output = str(temp0 + temp1)
+    if y_pos > UPPER_BOUND:
+        y_pos == UPPER_BOUND
+    if y_pos < LOWER_BOUND:
+        y_pos == LOWER_BOUND
+
 
     # if temp0 != 0:
     #     output = str(temp0)
 
-    print "%f\t%f\t%s" %(temp0, temp1, output)
+    print "%f\t%f\t%s" %(temp0, temp1, y_pos)
 
     # output = str(temp0 + temp1)
-    channel.basic_publish(exchange='', routing_key='player1', body=output)
+    channel.basic_publish(exchange='', routing_key='player1', body=str(y_pos))
 
     buffer_counter += 1
     emg_counter += 1
