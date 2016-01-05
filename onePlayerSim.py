@@ -259,11 +259,6 @@ def main():
         # print time.time() - prev_time
         # prev_time = time.time()
 
-        # for event in pygame.event.get():
-        #     if event.type == pygame.locals.QUIT:
-        #         pygame.quit()
-        #         sys.exit()
-
         # Draw the game components
         drawArena()
         drawPaddle(paddle1)
