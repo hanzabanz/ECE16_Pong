@@ -2,6 +2,7 @@ import sys
 import pygame
 import pika
 import time
+import socket
 
 __author__ = ''
 """
@@ -34,7 +35,6 @@ PADDLESIZE = 120
 # Game-Specific Variables
 INPUTRANGE = 20
 
-
 # Number of frames per second
 FPS = 200
 
@@ -55,6 +55,9 @@ BASICFONTSIZE = 20
 
 BLACK     = (0  ,0  ,0  )
 WHITE     = (255,255,255)
+
+UDP_IP = "127.0.0.1"
+UDP_PORT = 5005
 
 # Draws the arena the game will be played in
 def drawArena():
@@ -196,6 +199,7 @@ def locationMap():
 def main():
     # Initiate y axis map
     y_map = locationMap()
+    print y_map
 
     # Initiate game display
     pygame.init()
@@ -235,13 +239,16 @@ def main():
     pygame.mouse.set_visible(0) # make cursor invisible
 
     # Create message queue connection
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    global channel
-    channel = connection.channel()
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, UDP_PORT))
 
-    # Create player input queues
-    channel.queue_declare(queue='player1')
-    channel.queue_declare(queue='player2')
+    # connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    # global channel
+    # channel = connection.channel()
+    #
+    # # Create player input queues
+    # channel.queue_declare(queue='player1')
+    # channel.queue_declare(queue='player2')
 
     # Default input values
     global inputOne
@@ -267,27 +274,37 @@ def main():
         ballDirX, ballDirY = checkEdgeCollision(ball, ballDirX, ballDirY)
 
         # Check the message queues from players
-        channel.start_consuming()
-        method_frame, header_frame, body = channel.basic_get(queue = 'player1')
-        if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
-            channel.stop_consuming()
-        else:
-            channel.basic_ack(delivery_tag=method_frame.delivery_tag)
-            channel.stop_consuming()
-            inputOne = float(body)
-            print "%s\t%s" %(inputOne, str(time.time()))
+        # channel.start_consuming()
+        # method_frame, header_frame, body = channel.basic_get(queue = 'player1')
+        # if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
+        #     channel.stop_consuming()
+        # else:
+        #     channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+        #     channel.stop_consuming()
+        #     inputOne = float(body)
+        #     print "%s\t%s" %(inputOne, str(time.time()))
+        #
+        # method_frame, header_frame, body = channel.basic_get(queue = 'player2')
+        # if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
+        #     channel.stop_consuming()
+        # else:
+        #     channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+        #     channel.stop_consuming()
+        #     inputTwo = float(body)
 
-        method_frame, header_frame, body = channel.basic_get(queue = 'player2')
-        if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
-            channel.stop_consuming()
-        else:
-            channel.basic_ack(delivery_tag=method_frame.delivery_tag)
-            channel.stop_consuming()
-            inputTwo = float(body)
+        data, addr = sock.recvfrom(1024)
+        print "\n"
+        print data
+        try:
+            inputOne = int(float(data))
+            print inputOne
+        except:
+            pass
 
         # Check validity of input and updates paddles
         if -INPUTRANGE <= inputOne <= INPUTRANGE:
             realInputOne = y_map[int(inputOne)+INPUTRANGE]
+            print realInputOne
             updatePaddle(paddle1, realInputOne)
         if -INPUTRANGE <= inputTwo <= INPUTRANGE:
             realInputTwo = y_map[int(inputTwo)+INPUTRANGE]

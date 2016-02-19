@@ -206,49 +206,49 @@ while time.time() < end:
         buffer_counter = 0
 
 
-    # plt.clf()
-    #
-    # plt.subplot(4,1,1)
-    # plt.title('Raw EMG0')
-    # plt.plot(raw_emg0_list)
-    # plt.axis([0, DISPLAY_SIZE, 275, 340])
-    #
-    # plt.subplot(4,1,2)
-    # plt.title('LPF EMG0')
-    # plt.plot(emg0_list)
-    # plt.axis([0, DISPLAY_SIZE, 275, 340])
-    #
-    # plt.subplot(4,1,3)
-    # plt.title('HPF EMG0')
-    # plt.plot(hpf_emg0_list)
-    # plt.axis([0, DISPLAY_SIZE, -375, 375])
-    #
-    # plt.subplot(4,1,4)
-    # plt.title('HPF EMG0')
-    # plt.plot(env_emg0_list)
-    # plt.axis([0, DISPLAY_SIZE, 275, 340])
+    plt.clf()
+
+    plt.subplot(4,1,1)
+    plt.title('Raw EMG0')
+    plt.plot(raw_emg0_list)
+    plt.axis([0, DISPLAY_SIZE, 275, 340])
+
+    plt.subplot(4,1,2)
+    plt.title('LPF EMG0')
+    plt.plot(emg0_list)
+    plt.axis([0, DISPLAY_SIZE, 275, 340])
+
+    plt.subplot(4,1,3)
+    plt.title('HPF EMG0')
+    plt.plot(hpf_emg0_list)
+    plt.axis([0, DISPLAY_SIZE, -375, 375])
+
+    plt.subplot(4,1,4)
+    plt.title('HPF EMG0')
+    plt.plot(env_emg0_list)
+    plt.axis([0, DISPLAY_SIZE, 275, 340])
 
     display_counter += 1
     if display_counter == 5:
         plt.clf()
 
-        # plt.subplot(2,1,1)
-        # plt.title('HPF EMG0')
-        # plt.plot(env_emg0_list)
-        # plt.axis([0, DISPLAY_SIZE, 275, 340])
+        plt.subplot(2,1,1)
+        plt.title('HPF EMG0')
+        plt.plot(env_emg0_list)
+        plt.axis([0, DISPLAY_SIZE, 275, 340])
 
-        # plt.subplot(2,1,2)
-        # plt.title('HPF EMG1')
-        # plt.plot(env_emg1_list)
-        # plt.axis([0, DISPLAY_SIZE, 275, 340])
-        # display_counter = 0
-        # plt.draw()
+        plt.subplot(2,1,2)
+        plt.title('HPF EMG1')
+        plt.plot(env_emg1_list)
+        plt.axis([0, DISPLAY_SIZE, 275, 340])
+        display_counter = 0
+        plt.draw()
 
-        # plt.pause(0.0001)
+        plt.pause(0.0001)
 
-    # plt.draw()
-    #
-    # plt.pause(0.0001)
+    plt.draw()
+
+    plt.pause(0.0001)
 
     # todo: add new arrays to the offsets
     if emg_counter >= DISPLAY_SIZE:

@@ -3,6 +3,7 @@ __author__ = 'hannah'
 from random import randint
 import pika
 import time
+import socket
 
 pos_range = 20
 vel_range = 1
@@ -11,11 +12,17 @@ rand_counter = 0
 inputOne = 0
 
 # create connection to a server on the local computer
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-channel = connection.channel()
+# connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+# channel = connection.channel()
+#
+# # create queue
+# channel.queue_declare(queue='player1')
 
-# create queue
-channel.queue_declare(queue='player1')
+UDP_IP = "127.0.0.1"
+UDP_PORT = 5005
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
 
 inputOne = -pos_range-1
 
@@ -49,7 +56,8 @@ while True:
         print y_pos
         print "\n"
 
-    channel.basic_publish(exchange='', routing_key='player1', body=str(y_pos))
+    #channel.basic_publish(exchange='', routing_key='player1', body=str(y_pos))
+    sock.sendto(str(y_pos), (UDP_IP,UDP_PORT))
     counter += 1
 
 
@@ -63,4 +71,4 @@ while True:
 #     # time.sleep(0.001)
 
 
-connection.close()
+# connection.close()
