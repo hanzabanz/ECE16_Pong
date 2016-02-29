@@ -1,25 +1,11 @@
-import sys
 import pygame
-import pika
-import time
 import socket
+import select
 
-__author__ = ''
 """
 Adapted from: http://trevorappleton.blogspot.com/2014/04/writing-pong-using-python-and-pygame.html
 
-For added difficulty: Change the SPEEDMULTIPLIER to have faster effects (affects ball speed, not frame rate or otherwise)
-- Tests latency of project
-For accuracy of control: Change INPUTRANGE ranges from -value to +value. Uses these values to map the position of a paddle.
-
-
-** Input by position, not velocity
-
-Y position:
-15 = LINETHICKNESS + (BALLTHICKNESS/2)
-16
-...
-585
+ECE16 Final Project Pong Game - Student Version
 """
 
 
@@ -34,13 +20,11 @@ PADDLESIZE = 120
 
 # Game-Specific Variables
 INPUTRANGE = 20
-
-# Number of frames per second
 FPS = 200
 
 # Game Display Variables
-WINDOWWIDTH = 1000
-WINDOWHEIGHT = 650
+WINDOWWIDTH = 800
+WINDOWHEIGHT = 600
 LINETHICKNESS = 10
 PADDLEOFFSET = 20
 
@@ -56,6 +40,7 @@ BASICFONTSIZE = 20
 BLACK     = (0  ,0  ,0  )
 WHITE     = (255,255,255)
 
+# Game Hosting Variables
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5005
 
@@ -83,6 +68,7 @@ def drawPaddle(paddle):
 # Draws the ball
 def drawBall(ball):
     pygame.draw.rect(DISPLAYSURF, WHITE, ball)
+
 
 # Moves the ball
 # Returns new position
@@ -133,7 +119,7 @@ def checkPointScored(paddle1, paddle2, ball, scoreOne, scoreTwo, ballDirX):
     return (scoreOne, scoreTwo)
 
 
-# Artificial Intelligence of computer player
+# Artificial intelligence of computer player
 def artificialIntelligence(ball, ballDirX, paddle2):
     # If ball is moving away from paddle, center bat.
     if ballDirX == -1:
@@ -180,7 +166,6 @@ def displayTeamNames():
 def locationMap():
     halfRange = float(((WINDOWBOTTOM-WINDOWTOP)/2) + WINDOWTOP)
     scale = float((halfRange-WINDOWTOP-(PADDLESIZE/2))/(INPUTRANGE))
-    adjustedBottom = WINDOWBOTTOM+(PADDLESIZE/2)
     y_map = []
     y_map.append(WINDOWTOP + (PADDLESIZE/2))
     for i in range(INPUTRANGE-1):
@@ -199,7 +184,6 @@ def locationMap():
 def main():
     # Initiate y axis map
     y_map = locationMap()
-    print y_map
 
     # Initiate game display
     pygame.init()
@@ -238,31 +222,17 @@ def main():
 
     pygame.mouse.set_visible(0) # make cursor invisible
 
-    # Create message queue connection
+    # Create UDP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, UDP_PORT))
-
-    # connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    # global channel
-    # channel = connection.channel()
-    #
-    # # Create player input queues
-    # channel.queue_declare(queue='player1')
-    # channel.queue_declare(queue='player2')
+    sock.settimeout(0.00001)
+    sock.setblocking(False)
 
     # Default input values
     global inputOne
     inputOne = 0.0
-    global inputTwo
-    inputTwo = 0.0
-
-    prev_time = time.time()
 
     while True: # main game loop
-        # # Following code used to get the timing of the loop:
-        # print time.time() - prev_time
-        # prev_time = time.time()
-
         # Draw the game components
         drawArena()
         drawPaddle(paddle1)
@@ -273,42 +243,31 @@ def main():
         ball = moveBall(ball, ballDirX, ballDirY)
         ballDirX, ballDirY = checkEdgeCollision(ball, ballDirX, ballDirY)
 
-        # Check the message queues from players
-        # channel.start_consuming()
-        # method_frame, header_frame, body = channel.basic_get(queue = 'player1')
-        # if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
-        #     channel.stop_consuming()
-        # else:
-        #     channel.basic_ack(delivery_tag=method_frame.delivery_tag)
-        #     channel.stop_consuming()
-        #     inputOne = float(body)
-        #     print "%s\t%s" %(inputOne, str(time.time()))
-        #
-        # method_frame, header_frame, body = channel.basic_get(queue = 'player2')
-        # if method_frame == None or method_frame.NAME == 'Basic.GetEmpty':
-        #     channel.stop_consuming()
-        # else:
-        #     channel.basic_ack(delivery_tag=method_frame.delivery_tag)
-        #     channel.stop_consuming()
-        #     inputTwo = float(body)t
-
-        data, addr = sock.recvfrom(1024)
-        print "\n"
-        print data
+        tempInputOne = inputOne
         try:
-            inputOne = int(float(data))
-            print inputOne
+            while True: # read until no other values
+                ready = select.select([sock], [], [], 0.0)
+                if ready[0]:
+                    data, addr = sock.recvfrom(1024)
+                    inputOne = float(data)
+                else:
+                    break # stop trying to read and use last value read
+                # Check validity of input and updates paddles
+            if -INPUTRANGE <= inputOne <= INPUTRANGE:
+                # Convert the input into y_mapping range
+                # inputOne = round(inputOne, 2)
+                inputOne = (inputOne*(2*INPUTRANGE))-INPUTRANGE
+                inputOne = round(inputOne, 0)
+                # Map input to pixel location
+                realInputOne = y_map[int(inputOne)+INPUTRANGE]
+                updatePaddle(paddle1, realInputOne)
         except:
-            pass
+            # if exception, reset everything to previous sample
+            inputOne = tempInputOne
+            updatePaddle(paddle1, inputOne)
 
-        # Check validity of input and updates paddles
-        if -INPUTRANGE <= inputOne <= INPUTRANGE:
-            realInputOne = y_map[int(inputOne)+INPUTRANGE]
-            print realInputOne
-            updatePaddle(paddle1, realInputOne)
-        if -INPUTRANGE <= inputTwo <= INPUTRANGE:
-            realInputTwo = y_map[int(inputTwo)+INPUTRANGE]
-            updatePaddle(paddle2, realInputTwo)
+        # Move paddle 2 automatically
+        paddle2 = artificialIntelligence(ball, ballDirX, paddle2)
 
         # Check edge collisions, change direction of ball, and adjust points
         scoreOne, scoreTwo = checkPointScored(paddle1, paddle2, ball, scoreOne, scoreTwo, ballDirX)

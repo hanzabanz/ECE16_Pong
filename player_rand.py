@@ -5,8 +5,10 @@ import pika
 import time
 import socket
 
-pos_range = 20
+pos_range = 0.5
+pos_offset = 0.5
 vel_range = 1
+vel_factor = 0.05
 
 rand_counter = 0
 inputOne = 0
@@ -41,23 +43,24 @@ while True:
 
     ## Following code for input based on velocity ##
     # Set internal velocity values by randomizing
-    if counter == 10000:
-        inputOne = float(randint(-vel_range, vel_range))
-        print inputOne
+    if counter == 5:
+        inputOne = float(randint(-vel_range, vel_range)*vel_factor)
         counter = 0
 
     # Convert velocity values to y axis position
-    if counter%1000 == 0:
-        y_pos += inputOne
+    if counter%5== 0:
+        y_pos += (inputOne)
         if y_pos > pos_range:
             y_pos = pos_range
         if y_pos < -pos_range:
             y_pos = -pos_range
-        print y_pos
-        print "\n"
+        y_pos_final = y_pos + pos_offset
 
     #channel.basic_publish(exchange='', routing_key='player1', body=str(y_pos))
-    sock.sendto(str(y_pos), (UDP_IP,UDP_PORT))
+    y_pos = float(y_pos)
+    sock.sendto(str(float(y_pos_final)), (UDP_IP,UDP_PORT))
+    time.sleep(0.00001) # MUST HAVE DELAY LARGER THAN 0.005!
+    print y_pos_final
     counter += 1
 
 
