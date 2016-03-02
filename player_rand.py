@@ -59,7 +59,7 @@ while True:
     #channel.basic_publish(exchange='', routing_key='player1', body=str(y_pos))
     y_pos = float(y_pos)
     sock.sendto(str(float(y_pos_final)), (UDP_IP,UDP_PORT))
-    time.sleep(0.00001) # MUST HAVE DELAY LARGER THAN 0.005!
+    time.sleep(0.1) # MUST HAVE DELAY LARGER THAN 0.005!
     print y_pos_final
     counter += 1
 
