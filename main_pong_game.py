@@ -1,6 +1,7 @@
 import pygame
 import socket
 import select
+import time
 
 """
 Adapted from: http://trevorappleton.blogspot.com/2014/04/writing-pong-using-python-and-pygame.html
@@ -18,6 +19,12 @@ PADDLE_SPEED_MULTIPLIER = 3  # adds speed, i.e. if 1, then max return speed woul
 BALL_THICKNESS = 20  # size of one side of the rectangular ball in pixels
 PADDLE_SIZE = 200  # size of paddle in pixels
 COMPUTER_DIFFICULTY = 1  # correlated with how fast the computer paddle moves; higher the faster
+MATCH_LENGTH = 60  # length of match in seconds
+
+# Game-Hosting Variables
+UDP_IP = "127.0.0.1"
+UDP_PORT1 = 5005
+UDP_PORT2 = 5006
 
 # Game-Specific Variables
 INPUT_RANGE = 40  # higher the value, the high specificity with y position
@@ -39,9 +46,6 @@ BASIC_FONT_SIZE = 20
 BLACK     = (0  ,0  ,0  )
 WHITE     = (255,255,255)
 
-# Game-Hosting Variables
-UDP_IP = "127.0.0.1"
-UDP_PORT = 5005
 
 # Draws the arena the game will be played in
 def drawArena():
@@ -211,6 +215,56 @@ def locationMap():
     return y_map
 
 
+def displayBeginRound(FPS_CLOCK):
+    displayLength = 3  # number of seconds for each screen to display
+    begTime = time.time()
+    words = ['READY', 'SET', 'GO!']
+    DISPLAY_SURF.fill((0,0,0))
+    while time.time() < begTime+(displayLength*3):
+        DISPLAY_SURF.fill((0,0,0))
+        if time.time() < begTime+displayLength:
+            i = 0
+        elif time.time() < begTime+(displayLength*2):
+            i = 1
+        else:
+            i = 2
+        wordSurf = ANNOUNCE_FONT.render(words[i], True, WHITE)
+        wordRect = wordSurf.get_rect()
+        wordRect.centerx = WINDOW_WIDTH/2
+        wordRect.centery = WINDOW_HEIGHT/2
+        DISPLAY_SURF.blit(wordSurf, wordRect)
+
+        pygame.display.update()
+        FPS_CLOCK.tick(FPS)
+        for event in pygame.event.get(): # ignore any game events, such as mouse clicks, etc.
+                None
+
+
+def displayWinner(scoreOne, scoreTwo, FPS_CLOCK):
+    displayLength = 10
+    winningMsg = ''
+    if scoreOne > scoreTwo:
+        winningMsg = 'Winner: %s' %(TEAM1_NAME)
+    elif scoreOne < scoreTwo:
+        winningMsg = 'Winner: %s' %(TEAM2_NAME)
+    else:
+        winningMsg = 'Tie!'
+
+    print "%s\nTeam 1: %d    Team 2: %d    Difference: %d" %(winningMsg, scoreOne, scoreTwo, abs(scoreOne-scoreTwo))
+
+    begTime = time.time()
+    while time.time() < begTime + displayLength:
+        wordSurf = ANNOUNCE_FONT.render(winningMsg, True, WHITE)
+        wordRect = wordSurf.get_rect()
+        wordRect.centerx = WINDOW_WIDTH/2
+        wordRect.centery = WINDOW_HEIGHT/2
+        DISPLAY_SURF.blit(wordSurf, wordRect)
+        pygame.display.update()
+        FPS_CLOCK.tick(FPS)
+        for event in pygame.event.get(): # ignore any game events, such as mouse clicks, etc.
+            None
+
+
 # Main game function
 def main():
     # Initiate y axis map
@@ -223,6 +277,8 @@ def main():
     # Set up font
     global BASIC_FONT
     BASIC_FONT = pygame.font.Font('freesansbold.ttf', BASIC_FONT_SIZE)
+    global ANNOUNCE_FONT
+    ANNOUNCE_FONT = pygame.font.Font('freesansbold.ttf', 6*BASIC_FONT_SIZE)
 
     FPS_CLOCK = pygame.time.Clock()
     DISPLAY_SURF = pygame.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT))
@@ -246,25 +302,30 @@ def main():
     paddle2 = pygame.Rect(WINDOW_WIDTH - PADDLE_OFFSET - LINE_THICKNESS, playerTwoPosition, LINE_THICKNESS,PADDLE_SIZE)
     ball = pygame.Rect(ballX, ballY, BALL_THICKNESS, BALL_THICKNESS)
 
-    # Draws the starting position of the Arena
-    drawArena()
-    drawPaddle(paddle1)
-    drawPaddle(paddle2)
-    drawBall(ball)
-
     pygame.mouse.set_visible(0) # make cursor invisible
 
     # Create UDP sockets
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind((UDP_IP, UDP_PORT))
-    sock.settimeout(0.00001)
-    sock.setblocking(False)
+    sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock1.bind((UDP_IP, UDP_PORT1))
+    sock1.settimeout(0.00001)
+    sock1.setblocking(False)
+    sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock2.bind((UDP_IP, UDP_PORT2))
+    sock2.settimeout(0.00001)
+    sock2.setblocking(False)
 
     # Default input values
     global inputOne
     inputOne = 0.0
+    global inputTwo
+    inputTwo = 0.0
 
-    while True: # main game loop
+    begTime = time.time()
+
+    # Draws the beginning ready, set, go sequence
+    displayBeginRound(FPS_CLOCK)
+
+    while time.time() < begTime+MATCH_LENGTH:  # main game loop
         # Draw the game components
         drawArena()
         drawPaddle(paddle1)
@@ -276,11 +337,14 @@ def main():
         ballDirX, ballDirY, paddleLoc = checkEdgeCollision(ball, ballDirX, ballDirY, paddleLoc)
 
         tempInputOne = inputOne
+        tempInputTwo = inputTwo
+
+        # read from socket 1
         try:
             while True: # read until no other values
-                ready = select.select([sock], [], [], 0.0)
+                ready = select.select([sock1], [], [], 0.0)
                 if ready[0]:
-                    data, addr = sock.recvfrom(1024)
+                    data, addr = sock1.recvfrom(1024)
                     inputOne = float(data)
                 else:
                     break # stop trying to read and use last value read
@@ -298,8 +362,28 @@ def main():
             inputOne = tempInputOne
             updatePaddle(paddle1, inputOne)
 
-        # Move paddle 2 automatically
-        paddle2 = artificialIntelligence(ball, ballDirX, paddle2)
+        # read from socket 2
+        try:
+            while True: # read until no other values
+                ready = select.select([sock2], [], [], 0.0)
+                if ready[0]:
+                    data, addr = sock2.recvfrom(1024)
+                    inputTwo = float(data)
+                else:
+                    break # stop trying to read and use last value read
+            # Check validity of input and updates paddles
+            if 0 <= inputTwo <= 1:
+                # Convert the input into y_mapping range
+                scaledInputTwo = round((inputTwo*(2*INPUT_RANGE))-INPUT_RANGE,0)
+                # Map input to pixel location
+                realInputTwo = y_map[int(scaledInputTwo)+INPUT_RANGE]
+                updatePaddle(paddle2, realInputTwo)
+            else:
+                pass
+        except:
+            # if exception, reset everything to previous sample
+            inputTwo = tempInputTwo
+            updatePaddle(paddle2, inputTwo)
 
         # Check edge collisions, change direction of ball, and adjust scores
         scoreOne, scoreTwo, ballDirX, paddleLoc = checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc)
@@ -312,6 +396,9 @@ def main():
 
         for event in pygame.event.get(): # ignore any game events, such as mouse clicks, etc.
             None
+
+    displayWinner(scoreOne, scoreTwo, FPS_CLOCK)
+    pygame.quit()
 
 if __name__=='__main__':
     main()
