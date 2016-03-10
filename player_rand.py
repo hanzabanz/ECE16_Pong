@@ -32,6 +32,9 @@ y_pos = 0
 
 counter = 0
 
+start = time.time()
+
+# while time.time() < start + 3:
 while True:
     # ## Following code for input based on position ##
     # inputOne = float(randint(-pos_range, pos_range))
@@ -62,6 +65,8 @@ while True:
     time.sleep(0.1) # MUST HAVE DELAY LARGER THAN 0.005!
     print y_pos_final
     counter += 1
+
+
 
 
 # Following code used to check order and frequency of read-in from main
