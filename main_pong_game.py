@@ -12,8 +12,6 @@ Adapted from: http://trevorappleton.blogspot.com/2014/04/writing-pong-using-pyth
 ECE16 Final Project Pong Game - Class Version
 """
 
-## TODO: Add sound effects, add calibration mode, add option to opt-out calibration early
-
 # Team-Specific Variables
 TEAM1_NAME = 'Team 1'
 TEAM2_NAME = 'Team 2'
@@ -22,10 +20,10 @@ TEAM2_NAME = 'Team 2'
 SPEED_MULTIPLIER = 1  # default speed; how many pixels the ball is incremented; must be >= 1
 PADDLE_SPEED_MULTIPLIER = 3  # adds speed, i.e. if 1, then max return speed would be 1+1=2 if hit in center of paddle
 BALL_THICKNESS = 30  # size of one side of the rectangular ball in pixels
-PADDLE_SIZE = 300  # size of paddle in pixels
+PADDLE_SIZE = 200  # size of paddle in pixels
 COMPUTER_DIFFICULTY = 1  # correlated with how fast the computer paddle moves; higher the faster
-MATCH_LENGTH = 30  # length of match in seconds
-CALIBRATION_LENGTH = 10 # length of calibration in seconds
+MATCH_LENGTH = 5*60  # length of match in seconds
+CALIBRATION_LENGTH = 5*60 # length of calibration in seconds
 
 # Game-Hosting Variables
 UDP_IP = "127.0.0.1"
@@ -33,7 +31,7 @@ UDP_PORT1 = 5005
 UDP_PORT2 = 5006
 
 # Game-Specific Variables
-INPUT_RANGE = 40  # higher the value, the high specificity with y position
+INPUT_RANGE = 100  # higher the value, the high specificity with y position
 FPS = 200  # frames per second; can be changed to make the game refresh faster
 
 # Game-Display Variables
@@ -56,10 +54,9 @@ RED       = (255,0  ,0  )
 # Sound Effect Variables
 # BALL_BOUNCE_FILE = '/sounds/Ball_Bounce.wav'
 BALL_BOUNCE_FILE = 'sounds/BallBounce2.wav'
-WINNER_FILE = ''
+BALL_THUD_FILE = 'sounds/BallThud.wav'
+WINNER_FILE = 'sounds/Winner.wav'
 READY_SET_GO_FILE = 'sounds/Countdown.wav'
-CALIBRATION_FILE = ''
-PADDLE_MOVE_FILE = ''
 GO_FILE = 'sounds/Go.wav'
 
 # ------------------------------------- #
@@ -100,24 +97,28 @@ def checkEdgeCollision(ball, ballDirX, ballDirY, paddleLoc):
 
 # Checks if the ball has hit a paddle, scores, and 'bounces' ball off paddle
 # Returns new scores, direction of ball, and relative location of paddle hit
-def checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc, ballBounceSound):
+def checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc, ballBounceSound, ballThudSound):
     newDirX = 1*ballDirX
     # if either of these two conditions, then paddle has hit the ball
     if ball.left <= LINE_THICKNESS:
+        ballThudSound.play()
+        pygame.time.delay(35)
         scoreOne -= 1
         paddleLoc = 1.0
     elif ballDirX == -1 and paddle1.right >= ball.left and paddle1.top < (ball.top + (ball.height/2)) and paddle1.bottom > (ball.bottom - (ball.height/2)):
         ballBounceSound.play()
-        pygame.time.delay(50)
+        pygame.time.delay(35)
         scoreOne += 1
         newDirX =  -1*ballDirX
         paddleLoc = calculateRelativeBallPaddleLoc(ball.centery, paddle1.top, paddle1.bottom, paddle1.centery)
     elif ball.right >= WINDOW_WIDTH - LINE_THICKNESS:
+        ballThudSound.play()
+        pygame.time.delay(35)
         scoreTwo -= 1
         paddleLoc = 1.0
     elif ballDirX == 1 and paddle2.left <= ball.right and paddle2.top < (ball.top + (ball.height/2)) and paddle2.bottom > (ball.bottom - (ball.height/2)):
         ballBounceSound.play()
-        pygame.time.delay(50)
+        pygame.time.delay(35)
         scoreTwo += 1
         newDirX =  -1*ballDirX
         paddleLoc = calculateRelativeBallPaddleLoc(ball.centery, paddle2.top, paddle2.bottom, paddle2.centery)
@@ -143,6 +144,7 @@ def calculateRelativeBallPaddleLoc(ballCenter, paddleTop, paddleBottom, paddleCe
 # ------------------------------------- #
 
 def readSocket(sock, y_map, tempInput):
+    input = 0.5
     try:
         while True: # read until no other values
             ready = select.select([sock], [], [], 0.0)
@@ -151,18 +153,18 @@ def readSocket(sock, y_map, tempInput):
                 input = float(data)
             else:
                 break # stop trying to read and use last value read
-        # Check validity of input and updates paddles
-        if 0 <= input <= 1:
-            # Convert the input into y_mapping range
-            scaledInput = round((input*(2*INPUT_RANGE))-INPUT_RANGE,0)
-            # Map input to pixel location
-            realInput = y_map[int(scaledInput)+INPUT_RANGE]
-            return realInput
-        else:
-            pass
     except:
         # if exception, reset everything to previous sample
-        return tempInput
+        input = tempInput
+    # Check validity of input and updates paddles
+    if 0 <= input <= 1:
+        # Convert the input into y_mapping range
+        scaledInput = round((input*(2*INPUT_RANGE))-INPUT_RANGE,0)
+        # Map input to pixel location
+        realInput = y_map[int(scaledInput)+INPUT_RANGE]
+        return realInput
+    else:
+        pass
 
 
 # Update paddle locations according to the input, where input is the new y position of the paddle
@@ -238,7 +240,7 @@ def displayTeamNames():
     DISPLAY_SURF.blit(resultSurf2, resultRect2)
 
 
-def displayWinner(scoreOne, scoreTwo, FPS_CLOCK):
+def displayWinner(scoreOne, scoreTwo, FPS_CLOCK, winnerSound):
     displayLength = 10
     winningMsg = ''
     if scoreOne > scoreTwo:
@@ -250,6 +252,7 @@ def displayWinner(scoreOne, scoreTwo, FPS_CLOCK):
 
     print "%s\nTeam 1: %d    Team 2: %d    Difference: %d" %(winningMsg, scoreOne, scoreTwo, abs(scoreOne-scoreTwo))
 
+    winnerSound.play()
     begTime = time.time()
     while time.time() < begTime + displayLength:
         wordSurf = ANNOUNCE_FONT.render(winningMsg, True, WHITE)
@@ -267,6 +270,7 @@ def displayWinner(scoreOne, scoreTwo, FPS_CLOCK):
 def locationMap():
     halfRange = float(((WINDOW_BOTTOM-WINDOW_TOP)/2) + WINDOW_TOP)
     scale = float((halfRange-WINDOW_TOP-(PADDLE_SIZE/2))/(INPUT_RANGE))
+    global y_map
     y_map = []
     y_map.append(WINDOW_TOP + (PADDLE_SIZE/2))
     for i in range(INPUT_RANGE-1):
@@ -416,8 +420,11 @@ def main():
     mx.pre_init(frequency=22050, size = -16, channels=4, buffer=4096)
     mx.init()
     ballBounceSound = mx.Sound(BALL_BOUNCE_FILE)
+    ballThudSound = mx.Sound(BALL_THUD_FILE)
+    ballThudSound.set_volume(0.3)
     readySetGoSound = mx.Sound(READY_SET_GO_FILE)
     goSound = mx.Sound(GO_FILE)
+    winnerSound = mx.Sound(WINNER_FILE)
 
     # Default input values
     global inputOne
@@ -458,7 +465,7 @@ def main():
         updatePaddle(paddle2, inputTwo)
 
         # Check edge collisions, change direction of ball, and adjust scores
-        scoreOne, scoreTwo, ballDirX, paddleLoc = checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc, ballBounceSound)
+        scoreOne, scoreTwo, ballDirX, paddleLoc = checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc, ballBounceSound, ballThudSound)
 
         # Display everything and update according to FPS
         displayTeamNames()
@@ -498,6 +505,8 @@ def main():
     paddle1 = pygame.Rect(PADDLE_OFFSET,playerOnePosition, LINE_THICKNESS,PADDLE_SIZE)
     paddle2 = pygame.Rect(WINDOW_WIDTH - PADDLE_OFFSET - LINE_THICKNESS, playerTwoPosition, LINE_THICKNESS,PADDLE_SIZE)
     ball = pygame.Rect(ballX, ballY, BALL_THICKNESS, BALL_THICKNESS)
+    inputOne = 0.5
+    inputTwo = 0.5
 
     # Keeps track of ball direction and speed
     ballDirX = random.choice([-1, 1])  # -1 = left, 1 = right
@@ -505,6 +514,7 @@ def main():
     paddleLoc = 1.0
 
     begTime = time.time()
+    endTime = begTime + MATCH_LENGTH
 
     # Draws the beginning ready, set, go sequence
     displayBeginRound(FPS_CLOCK, readySetGoSound)
@@ -536,11 +546,13 @@ def main():
         updatePaddle(paddle2, inputTwo)
 
         # Check edge collisions, change direction of ball, and adjust scores
-        scoreOne, scoreTwo, ballDirX, paddleLoc = checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc, ballBounceSound)
+        scoreOne, scoreTwo, ballDirX, paddleLoc = checkHitBall(ball, paddle1, paddle2, ballDirX, scoreOne, scoreTwo, paddleLoc, ballBounceSound, ballThudSound)
 
         # Display everything and update according to FPS
         displayScore(scoreOne, scoreTwo)
         displayTeamNames()
+        if endTime > time.time() > endTime-30:
+            displayCountDown(endTime)
         pygame.display.update()
         FPS_CLOCK.tick(FPS)
 
@@ -549,7 +561,7 @@ def main():
                 pygame.quit()
                 sys.quit()
 
-    displayWinner(scoreOne, scoreTwo, FPS_CLOCK)
+    displayWinner(scoreOne, scoreTwo, FPS_CLOCK, winnerSound)
     pygame.quit()
 
 if __name__=='__main__':
